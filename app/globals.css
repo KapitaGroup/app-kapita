@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    @apply flex justify-center text-primary text-body;
+  }
+
+  body {
+    @apply w-full antialiased xl:flex xl:justify-center;
+  }
+
+  * {
+    @apply motion-reduce:!animate-none motion-reduce:!transition-none;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}

@@ -1,0 +1,453 @@
+{
+  "ok": "OK",
+  "start": "Börja",
+  "next": "Nästa",
+  "google": "Google",
+  "page-not-found-message": "Sidan hittades inte!",
+  "or": "eller",
+  "your-name": "Ditt namn",
+  "email": "Email",
+  "phone": "Telefonnummer",
+  "password": "Lösenord",
+  "login": "Logga in",
+  "cancel": "Avbryt",
+  "settings": "Inställningar",
+  "logout": "Logga ut",
+  "terms-and-conditions": "Användarvillkor",
+  "privacy-policy": "Personuppgiftshantering",
+  "complete-profile": "{percentage}% komplett profil",
+  "complete-needs-analysis": "{percentage}% komplett behovsanalys",
+  "complete-know-your-customer": "{percentage}% komplett kundkännedom",
+  "address": "Address",
+  "postal": "Postnummer",
+  "city": "Stad",
+  "country": "Land",
+  "personNumber": "Personnummer (ÅÅÅÅMMDD-XXXX)",
+  "organizationNumber": "Organisationsnummer",
+  "organizationName": "Företagsnamn",
+  "done": "Klar",
+  "read-more": "Läs mer",
+  "updating": "Uppdaterar...",
+  "updated": "Uppdaterad!",
+  "update-failed": "Uppdateringen misslyckades!",
+  "email-sent": "Email skickat.",
+  "choose-one-or-more": "Välj ett eller flera svar",
+  "register-interest": "Anmäl intresse",
+  "interest-sent": "Intresseanmälan skickad",
+  "buy": "Köpa",
+  "sell": "Sälja",
+  "attributes": {
+    "sector": {
+      "title": "Investeringssektor",
+      "title2": "Investeringssektorer",
+      "description": "En investeringssektor avser ett specifikt område inom ekonomin. Detta kan vara allt från teknik och hälsovård till fastigheter och förnybar energi. Genom att hålla koll på dina investeringar kan du diversifiera din portfölj och hitta investeringar som överensstämmer med dina intressen, risktolerans och investeringsmål.",
+      "options": {
+        "AI and Machine Learning": "AI och maskininlärning",
+        "Beautytech": "Beautytech",
+        "Communication Software": "Kommunikationsprogramvara",
+        "DeepTech": "DeepTech",
+        "Debt": "Skuld",
+        "E-commerce": "E-handel",
+        "Fintech": "Fintech",
+        "MailTech": "MailTech",
+        "Gaming": "Gaming",
+        "Healthtech": "Hälsoteknik",
+        "Life Science": "Life Science",
+        "Logistics and Supply Chain": "Logistik och leveranskedja",
+        "Marketing Tech": "Marknadsföringsteknik",
+        "Private Equity": "Private Equity",
+        "Real Estate": "Fastigheter",
+        "SaaS (Software as a Service)": "SaaS (Software as a Service)",
+        "Technology": "Tech",
+        "Venture Capital": "Venture Capital"
+      }
+    },
+    "type": {
+      "title": "Investeringstyp",
+      "description": "",
+      "options": {
+        "Bonds": "Obligationer",
+        "Convertible Note": "Konvertibelt lån",
+        "Equity": "Aktier",
+        "Loan": "Lån",
+        "Terms": "Villkor",
+        "Publicly Traded Shares": "Publikt Handlade Aktier",
+        "Private Shares": "Privata Aktier",
+        "SAFE (Simple Agreement for Future)": "SAFE",
+        "Funds": "Fonder",
+        "Commodities": "Råvaror",
+        "Futures": "Terminer",
+        "Crypto": "Krypto"
+      },
+      "descriptions": {
+        "Bonds": "Skuldförbindelser som utfärdas av regeringar eller företag. Obligationsinnehavare lånar ut pengar till emittenten i utbyte mot periodiska räntebetalningar och återbetalning av kapitalbeloppet vid förfall.",
+        "Convertible Note": "Ett konvertibelt lån är en flexibel skuldplacering som kan konverteras till eget kapital vid ett senare tillfälle. Investerare tjänar ränta och har möjlighet att konvertera sin skuld till en förutbestämd värdering.",
+        "Equity": "",
+        "Loan": "Ger regelbundna räntebetalningar och återbetalning av lånet vid förfallodagen. Anses generellt vara mindre riskfyllda än aktier, men ger också lägre avkastning.",
+        "Terms": "",
+        "Publicly Traded Shares": "Aktier i ett företag som handlas på en offentlig börs. Dessa aktier kan köpas och säljas av vem som helst, och deras priser fluktuerar baserat på marknadsefterfrågan och företagets prestation.",
+        "Private Shares": "Aktier i ett företag som inte handlas offentligt. Dessa aktier innehas vanligtvis av ett begränsat antal investerare, såsom grundare, anställda och private equity-företag. Privata aktier kan vara mindre likvida, vilket innebär att de kan vara svåra att sälja, men de kan också erbjuda högre potentiella avkastningar än offentliga aktier.",
+        "SAFE (Simple Agreement for Future)": "En SAFE (Simple Agreement for Future Equity) är ett förenklat investeringsavtal som ofta används av tidiga startups som ett snabbare och mindre komplext alternativ till traditionella term sheets. Investerare som köper en SAFE köper i princip en framtida aktieandel i företaget, ofta med en rabatt på den framtida värderingen.",
+        "Funds": "En pool av pengar från flera investerare, förvaltad av en professionell fondförvaltare. Fonder investerar i olika tillgångar, inklusive aktier, obligationer och fastigheter, för att diversifiera risk och generera avkastning.",
+        "Commodities": "Fysiska tillgångar, såsom guld, olja och jordbruksprodukter, som handlas på råvarubörser. Investering i råvaror kan vara ett sätt att skydda sig mot inflation och ekonomisk osäkerhet.",
+        "Futures": "Kontrakt som förpliktar köparen att köpa eller säljaren att sälja en specifik tillgång vid ett framtida datum till ett förutbestämt pris. Terminskontrakt används ofta av handlare för att spekulera i prisrörelser och för att skydda sig mot risker.",
+        "Crypto": "Digitala eller virtuella valutor som använder kryptografi för säkerhet. Kryptovalutor kan vara mycket volatila och spekulativa, men de erbjuder också potential för betydande avkastning."
+      }
+    },
+    "invester-type": {
+      "title": "Investerartyp",
+      "description": "",
+      "options": {
+        "Private investor": "Privat investerare",
+        "Business angel": "Affärsängel",
+        "Professional": "Professionell",
+        "Family office": "Family Office",
+        "Institutional": "Institutionell"
+      }
+    },
+    "stage": {
+      "title": "Investeringsstadie",
+      "title2": "Investeringsstadier",
+      "description": "",
+      "options": {
+        "Pre-Seed": "Pre-Seed",
+        "Seed": "Seed",
+        "Series A": "Series A",
+        "Series B": "Series B",
+        "Series C": "Series C",
+        "Series D+": "Series D+",
+        "Pre IPO": "Pre IPO",
+        "Initial Public Offering": "IPO",
+        "Acquisition": "Acquisition",
+        "Broad-Stage VC Portfolio": "Stadieöverskridande portfölj",
+        "Early Stage": "Tidigt stadie",
+        "Early to Late Stage": "Tidigt till sent stadie",
+        "Growth Stage": "Tillväxtstadie",
+        "High-Growth Opportunities": "Högtillväxtmöjligheter",
+        "Lifecycle Investments": "Livscykelinvesteringar",
+        "Strategic Stage Investments": "Strategiska stadieinvesteringar"
+      },
+      "descriptions": {
+        "Pre-Seed": "Här är företaget i sin allra första fas, ofta med en innovativ idé men ännu utan produkt eller tjänst på marknaden. Risken är hög, men potentialen för hög avkastning är också stor.",
+        "Seed": "Företaget har en fungerande prototyp eller MVP (Minimum Viable Product) och söker finansiering för att skala upp verksamheten. Risken är fortfarande hög, men mindre än i pre-seed-fasen.",
+        "Series A": "Företaget har en produkt eller tjänst på marknaden och börjar generera intäkter. Investeringar i detta skede används ofta för att expandera verksamheten och öka marknadsandelen.",
+        "Series B": "Företaget är väletablerat och har en stark marknadsposition. Investeringar i detta skede används ofta för att finansiera produktutveckling, marknadsföring och expansion till nya marknader.",
+        "Initial Public Offering": "Initial Public Offering, det vill säga börsintroduktionen."
+      }
+    },
+    "minimal-ticket-size": {
+      "title": "Min. investeringsstorlek",
+      "description": "Investeringens storlek är ett uttryck som ofta används inom investeringar och betyder helt enkelt storleken på en investering. Det är alltså det totala belopp som en investerare lägger in i ett specifikt projekt eller företag."
+    },
+    "target": {
+      "title": "Insamlingsmål",
+      "description": "Investeringmålet för denna affär representerar den totala kapitalmängd som behövs för att finansiera detta projekt eller den aktuella investeringsrundan."
+    },
+    "return-rate": {
+      "title": "Prognostiserad IRR",
+      "description": "Den prognostiserade interna räntan (IRR) är en finansiell måttstock som används för att uppskatta lönsamheten för potentiella investeringar. Den representerar den förväntade årliga avkastningen som en investering förväntas generera. En högre IRR indikerar generellt en mer attraktiv investeringsmöjlighet."
+    },
+    "risk-factor": {
+      "title": "Riskfaktor",
+      "title2": "Riskbenägenhet",
+      "description": "Risk factors are conditions, situations, or events that increases the likelihood of an unfavorable outcome, such as a loss on an investment. These can be both internal factors, related to the specific investment or company, and external factors, influenced by market conditions or economic trends.\n\nWe identify and assess risk factors and summarize them into three risk levels; low, medium and high.",
+      "options": {
+        "Low": "Låg",
+        "Medium": "Medium",
+        "High": "Hög"
+      }
+    },
+    "investment-overview": {
+      "title": "Din nuvarande investeringsöverblick",
+      "options": {
+        "I have a good overview": "Jag har god överblick",
+        "I don't have a complete overview": "Jag saknar full överblick"
+      }
+    },
+    "next-investment-timeframe": {
+      "title": "Tidsram för nästa investering",
+      "options": {
+        "0-3 months": "0-3 Månader",
+        "3-6 months": "3-6 Månader",
+        "6-12 months": "6-12 Månader",
+        "12+ months": "12+ Månader"
+      }
+    },
+    "average-investment-size": {
+      "title": "Genomsnittlig investeringsstorlek",
+      "options": {
+        "< 100 000 SEK": "< 100 000 SEK",
+        "100 000 - 500 000 SEK": "100 000 - 500 000 SEK",
+        "500 000 - 1 000 000 SEK": "500 000 - 1 000 000 SEK",
+        "1-5 MSEK": "1-5 MSEK",
+        "5-10 MSEK": "5-10 MSEK",
+        "10+ MSEK": "10+ MSEK"
+      }
+    },
+    "portfolio-size": {
+      "title": "Portföljstorlek (AUM)",
+      "options": {
+        "0-3 million SEK": "0-3 MSEK",
+        "3-5 million SEK": "3-5 MSEK",
+        "5-10 million SEK": "5-10 MSEK",
+        "10-20 million SEK": "10-20 MSEK",
+        "20-50 million SEK": "20-50 MSEK",
+        "50+ million SEK": "50+ MSEK"
+      }
+    },
+    "investment-strategy": {
+      "title": "Investeringsstrategi",
+      "options": {
+        "Value": "Värde",
+        "Growth": "Tillväxt",
+        "Index": "Index",
+        "Dividend": "Utdelning"
+      }
+    },
+    "placement-type": {
+      "title": "Placeringstyp",
+      "options": {
+        "Convertible Note": "Konvertibelt lån",
+        "Publicly traded shares": "Börsnoterade aktier",
+        "Private shares": "Onoterade aktier",
+        "Loan": "Lån",
+        "SAFE": "SAFE",
+        "Funds": "Fonder",
+        "Commodities": "Råvaror",
+        "Futures": "Terminer",
+        "Bonds": "Obligationer",
+        "Crypto": "Krypto"
+      }
+    },
+    "placement-horizon": {
+      "title": "Placeringshorisont",
+      "options": {
+        "less than 1 year": "< 1 år",
+        "1-2 years": "1-2 år",
+        "3-5 years": "3-5 år",
+        "more than 5 years": "> 5 år"
+      }
+    },
+    "primary-investment-target": {
+      "title": "Primärt investeringsmål",
+      "options": {
+        "Capital growth": "Kapitaltillväxt",
+        "Income generation": "Inkomstgenerering",
+        "Capital preservation": "Kapitalbevarande"
+      }
+    },
+    "investing-for": {
+      "title": "Investerar som",
+      "options": {
+        "myself": "Privatperson",
+        "company": "Företag"
+      }
+    }
+  },
+  "OpportunityPage": {
+    "missing-opportunity": "Ingen sådan möjlighet i systemet!",
+    "opportunity-image-alt": "{name} möjlighetsbild",
+    "headquarters-in": "Huvudkontor i {headquarters}",
+    "investors": "Investerare",
+    "memorandum": "Visa detaljer (PDF)",
+    "verifiedLink": "Fyll i teckningssedeln",
+    "status": {
+      "Coming soon": "Kommer snart",
+      "Ongoing": "Pågår",
+      "Finished": "Avslutad"
+    }
+  },
+  "OpportunitiesPage": {
+    "title": "Utforska andra affärsmöjligheter",
+    "description": "Utvalda affärsmöjligheter",
+    "best-match-image-alt": "Utvalda affärsmöjligheter",
+    "opportunities-count": "Visar {count} affärsmöjligheter",
+    "no-data": "There are currently no opportunities!"
+  },
+  "ProfilePage": {
+    "edit-profile": "Redigera profil",
+    "need-more-info-description": "För att vi bättre ska kunna match din profil med deals behöver vi veta mer om dig.",
+    "need-verification": "Behöver verifieras",
+    "awaiting-verification": "Inväntar verifiering",
+    "verify": "Verifiera",
+    "send-again-notification": "Kan skicka det igen efter 5 minuter",
+    "reverification-notification": "Verifiering behövs om ändring görs",
+    "welcome-title": "Välkommen till den digitala delen av Kapita",
+    "welcome-description": "Eftersom du har på något sätt varit i kontakt med oss tidigare kan vissa delar av din profil redan vara ifylld. Om du ser något som inte stämmer är det bara att ändra.",
+    "tabs": {
+      "about-investor": "Om investeraren",
+      "needs-analysis": "Behovsanalys"
+    },
+    "investing-on-behalf": {
+      "title": "Om investeraren",
+      "subtitle": "Investerar som",
+      "myself": "Privatperson",
+      "company": "Företag"
+    },
+    "titles": {
+      "contact-info": "Dina kontaktuppgifter",
+      "geography": "Geografi",
+      "investment-activity": "Investeringsaktivitet"
+    },
+    "errors": {
+      "image-too-large": "The image is too large. Please upload an image smaller than {size}MB."
+    }
+  },
+  "SecondaryPage": {
+    "title": "Secondary",
+    "description": "Secondary, eller andrahandstransaktion, erbjuder ett unikt tillfälle att investera i etablerade, högväxande företag. Genom att köpa aktier direkt från befintliga investerare kan du få exponering mot lovande företag som inte är börsnoterade. Denna strategi kan ge en mer diversifierad portfölj och potentiellt högre avkastning.\n\nVi utvecklar vår plattform så du kommer kunna läsa om, köpa och sälja onoterade aktier direkt på plattformen. Fram tills det är klart agerar vi som traditionell mäklare genom e-mail och telefon. Anmäl ditt intresse här så hör vi av oss!",
+    "question": "Är du intresserad av att köpa och/eller sälja secondary?",
+    "interest-confirmation": "Vi har tagit emot din intresseanmälan och kommer höra av oss på mail eller telefon enligt de uppgifter som finns i din profil.",
+    "no-options-selected": "Du måste välja minst ett alternativ för att anmäla intresse."
+  },
+  "SettingsPage": {
+    "title": "Inställningar",
+    "communication": {
+      "title": "Kommunikation",
+      "description": "Välj vilka e-postmeddelanden du vill få från Kapita här.",
+      "subscriptions": {
+        "238798626": "Investeringsmöjligheter",
+        "329034489": "Marknadsinformation",
+        "unsubscribe-all": "Avregistrera alla"
+      }
+    },
+    "language": {
+      "title": "Språk",
+      "description": "Här kan du byta språkinställningen för den här plattformen.",
+      "language-options": {
+        "en": "English",
+        "sv": "Svenska"
+      }
+    },
+    "integrity": {
+      "title": "Integritet",
+      "description": "Du har rätt att radera all din data och din profil.",
+      "delete-profile": "Radera profil",
+      "pop-up": {
+        "title": "Radera din profil?",
+        "description": "Om du raderar din profil kommer du inte längre ha digital tillgång till vårt nätverk.",
+        "confirm": "Radera min profil",
+        "cancel": "Avbryt, jag vill inte radera profilen"
+      },
+      "reauth": {
+        "title": "Säkerhetskontroll krävs!",
+        "description": "Av säkerhetsskäl måste du logga in igen för att radera ditt konto. När du har loggat in igen har du 5 minuter på dig att slutföra raderingen av ditt konto."
+      }
+    }
+  },
+  "LoginPage": {
+    "titles": {
+      "log-in-create-account": "Logga in eller skapa konto",
+      "welcome-back": "Välkommen tillbaka",
+      "create-account": "Skapa konto",
+      "password-reset": "Återställ lösenord"
+    },
+    "info": {
+      "description": "Kapita strävar efter att vara den ledande partnern för entreprenörer och företag som vill skapa långsiktigt värde.",
+      "benefits": {
+        "exclusive-access": "Exklusiv tillgång till toppklassade PE-fonder",
+        "lower-investments": "Lägre minimuminvesteringar för kvalificerade professionella",
+        "rigorous-manager": "Noggrann granskning av förvaltare"
+      }
+    },
+    "background-image-alt": "Bakgrundsbild",
+    "disclaimer": "Genom att fortsätta godkänns",
+    "type-verification": "Ange verifieringskod",
+    "verify-email": "Verifiera email",
+    "verify-phone": "Verifiera telefonnummer",
+    "send-verification-code": "Skicka verifieringskod",
+    "create-account": "Skapa konto",
+    "choose-password": "Välj lösenord",
+    "forgot-password": "Glömt lösenord?",
+    "password-reset": {
+      "description": "Välj ett nytt, säkert lösenord som du inte använder på andra sidor.",
+      "input-label": "Välj nytt lösenord",
+      "set-password": "Spara lösenord",
+      "successful-reset": "Nytt lösenord sparat",
+      "successful-reset-info": "Ditt nya lösenord är sparat och du är nu inloggad."
+    }
+  },
+  "WizardPage": {
+    "title": "Välkommen till Kapita Investment Group",
+    "description": "Svara på några korta frågorna för att hjälpa oss att matcha dig med investeringsmöjligheter.",
+    "end-title": "Din profil är klar!",
+    "end-description": "Vi har nu matchat din profil med affärsmöjligheter som vi skulle vilja presentera för dig.",
+    "show-opportunities": "Visa affärsmöjligheter",
+    "start-needs-analysis": "Starta behovsanalys",
+    "start-know-your-customer": "Starta kundkännedom",
+    "stage": {
+      "profile": "Skapa profil",
+      "needs-analysis": "Behovsanalys",
+      "know-your-customer": "Kundkännedom"
+    },
+    "step-titles": {
+      "profile-1": "Vem investerar du för?",
+      "profile-2-myself": "Vem är du som investerar?",
+      "profile-2-company": "För vilket företag investerar du?",
+      "profile-3": "Vad är er adress?",
+      "needs-analysis-1": "Vad är du för typ av investerare?",
+      "needs-analysis-2": "Vad är ditt primära investeringsmål?",
+      "needs-analysis-3": "Vad har du för placeringshorisont?",
+      "needs-analysis-4": "Vilka typer av finansiella tillgångar är du intresserad av?",
+      "needs-analysis-5": "Vilka sektorer är mest intressanta för dig?",
+      "needs-analysis-6": "Vilka investeringsstadier är mest intressanta för dig?",
+      "needs-analysis-7": "Hur stor är din portfölj idag?",
+      "needs-analysis-8": "Vad är din genomsnittliga investeringsstorlek?",
+      "needs-analysis-9": "Vad har du för riskbenägenhet?",
+      "needs-analysis-10": "När är du öppen för nya investeringsmöjligheter?",
+      "needs-analysis-11": "Vad har du för investeringsstrategi?",
+      "needs-analysis-12": "Har du en god överblick över alla dina investeringar och var de är förvarade?"
+    }
+  },
+  "Menu": {
+    "nav": {
+      "home": "Hem",
+      "profile": "Din profil",
+      "profile-image": "Din profilbild",
+      "opportunities": "Affärsmöjligheter",
+      "secondary": "Secondary"
+    },
+    "todo": "Att göra",
+    "update-profile": "Uppdatera profil",
+    "homepage": "Hemsida"
+  },
+  "Metadata": {
+    "title": "Kapita Investment Group",
+    "description": "Där kapital och möjligheter möts"
+  },
+  "Errors": {
+    "required": "Nödvändig!",
+    "incorrect-email-format": "Ange en email i ett giltigt format, t.ex. namn@email.se",
+    "incorrect-phone-format": "Ange en mobilnummer i ett giltigt format, t.ex. +46723456789",
+    "auth/invalid-credential": "Fel lösenord. Försök igen eller klicka på Glömt lösenord för att återställa det.",
+    "auth/weak-password": "Lösenordet är för svagt! Minst 8 tecken.",
+    "auth/email-already-in-use": "Email är redan i bruk.",
+    "auth/password-does-not-meet-requirements": "Du behöver ett starkare lösenord.\n\nLösenordet behöver uppfylla de här kraven:\n- Minst en versal (A-Z)\n- Minst en gemen bokstav (a-z)\n- Minst en siffra (0-9)\n- Minst ett specialtecken (t.ex. !@#$%^&*)\n- Minst 8 tecken långt",
+    "auth/account-exists-with-different-credential": "Det verkar som om du redan har använt den här e-postadressen för att registrera dig på ett annat sätt. Vänligen försök logga in på samma sätt som du gjorde vid registreringen.",
+    "wrong-code": "Fel verifieringskod!",
+    "wrong-person-number-format": "Ogiltigt format för personnummer."
+  },
+  "Messages": {
+    "contacting": "Skickar förfrågan",
+    "contacted": "Förfrågan skickad",
+    "error": "Kunde inte kontakta! Vänligen kontakta vår hjälptjänst."
+  },
+  "Emails": {
+    "email-verification": {
+      "subject": "Kapita - Verifiera din mailadress",
+      "title": "Verifiera din mailadress",
+      "description": "För att fortsätta konfigurera ditt Kapita-konto, vänligen verifiera att det här är din e-postadress.",
+      "button": "Verifiera mailaddress",
+      "footer": "Den här länken är giltig i 5 dagar. Om du inte gjorde förfrågan kan du ignorera det här meddelandet. För frågor, kontakta oss på ",
+      "missing-code": "Verifieringskod saknas!",
+      "verifying": "Verifierar din mailadress...",
+      "verified": "Email verifierad!",
+      "error": "Kunde inte verifiera email! Se till att länken är giltig och inte har gått ut och försök igen."
+    },
+    "notifications": {
+      "sending": "Skickar...",
+      "sent": "Email skickat!",
+      "error": "Fel uppstod!"
+    }
+  }
+}

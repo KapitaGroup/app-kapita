@@ -1,0 +1,453 @@
+{
+  "ok": "OK",
+  "start": "Start",
+  "next": "Next",
+  "login": "Log in",
+  "cancel": "Cancel",
+  "email": "Email",
+  "phone": "Phone",
+  "password": "Password",
+  "google": "Google",
+  "page-not-found-message": "Page not found!",
+  "or": "or",
+  "your-name": "Your name",
+  "settings": "Settings",
+  "logout": "Log out",
+  "terms-and-conditions": "Terms & Conditions",
+  "privacy-policy": "Privacy Policy",
+  "complete-profile": "{percentage}% complete profile",
+  "complete-needs-analysis": "{percentage}% complete needs analysis",
+  "complete-know-your-customer": "{percentage}% complete know your customer",
+  "address": "Address",
+  "postal": "Postal Number",
+  "city": "City",
+  "country": "Country",
+  "personNumber": "Personal number (YYYYMMDD-XXXX)",
+  "organizationNumber": "Organization number",
+  "organizationName": "Company Name",
+  "done": "Done",
+  "read-more": "Read more",
+  "updating": "Updating...",
+  "updated": "Updated!",
+  "update-failed": "Update failed!",
+  "email-sent": "Email sent.",
+  "choose-one-or-more": "Choose one or more answers",
+  "register-interest": "Express Interest",
+  "interest-sent": "Interest Notification Sent",
+  "buy": "Buy",
+  "sell": "Sell",
+  "attributes": {
+    "sector": {
+      "title": "Investment Sector",
+      "title2": "Investment Sectors",
+      "description": "An investment sector refers to a specific area of the economy. This could be anything from technology and healthcare to real estate and renewable energy. By keeping track of your investments, you can diversify your portfolio and find investment that align with your interests, risk tolerance, and investment goals.",
+      "options": {
+        "AI and Machine Learning": "AI and Machine Learning",
+        "Beautytech": "Beautytech",
+        "Communication Software": "Communication Software",
+        "DeepTech": "DeepTech",
+        "Debt": "Debt",
+        "E-commerce": "E-commerce",
+        "Fintech": "Fintech",
+        "MailTech": "MailTech",
+        "Gaming": "Gaming",
+        "Healthtech": "Healthtech",
+        "Life Science": "Life Science",
+        "Logistics and Supply Chain": "Logistics and Supply Chain",
+        "Marketing Tech": "Marketing Tech",
+        "Private Equity": "Private Equity",
+        "Real Estate": "Real Estate",
+        "SaaS (Software as a Service)": "SaaS (Software as a Service)",
+        "Technology": "Technology",
+        "Venture Capital": "Venture Capital"
+      }
+    },
+    "type": {
+      "title": "Investment Type",
+      "description": "",
+      "options": {
+        "Bonds": "Bonds",
+        "Convertible Note": "Convertible Note",
+        "Equity": "Equity",
+        "Loan": "Loan",
+        "Terms": "Terms",
+        "Publicly Traded Shares": "Publicly Traded Shares",
+        "Private Shares": "Private Shares",
+        "SAFE (Simple Agreement for Future)": "SAFE (Simple Agreement for Future)",
+        "Funds": "Funds",
+        "Commodities": "Commodities",
+        "Futures": "Futures",
+        "Crypto": "Crypto"
+      },
+      "descriptions": {
+        "Bonds": "Debt securities issued by governments or corporations. Bondholders lend money to the issuer in exchange for periodic interest payments and the repayment of the principal amount at maturity.",
+        "Convertible Note": "A convertible note is a flexible debt investment that can be converted into equity at a future date. Investors earn interest and have the option to convert their debt into equity at a predetermined valuation.",
+        "Equity": "",
+        "Loan": "Provides regular interest payments and repayment of the loan at maturity. Generally considered to be less risky than shares, but also provides lower returns.",
+        "Terms": "",
+        "Publicly Traded Shares": "Shares of a company that are traded on a public stock exchange. These shares can be bought and sold by anyone, and their prices fluctuate based on market demand and company performance.",
+        "Private Shares": "Shares of a company that are not publicly traded. These shares are typically held by a limited number of investors, such as founders, employees, and private equity firms. Private shares can be more illiquid, meaning they may be difficult to sell, but they can also offer higher potential returns than public shares.",
+        "SAFE (Simple Agreement for Future)": "A SAFE is a simplified investment contract commonly used by early-stage startups, offering a quicker and less complex alternative to traditional term sheets. Investors who purchase a SAFE are essentially buying a future equity stake in the company, often with a discount on the future valuation.",
+        "Funds": "A pool of money from multiple investors, managed by a professional fund manager. Funds invest in a variety of assets, including stocks, bonds, and real estate, to diversify risk and generate returns.",
+        "Commodities": "Physical assets, such as gold, oil, and agricultural products, that are traded on commodity exchanges. Investing in commodities can be a way to hedge against inflation and economic uncertainty.",
+        "Futures": "Contracts that obligate the buyer to purchase or the seller to sell a specific asset at a future date at a predetermined price. Futures contracts are often used by traders to speculate on price movements and to hedge against risk.",
+        "Crypto": "Digital or virtual currencies that use cryptography for security. Cryptocurrencies can be highly volatile and speculative, but they also offer the potential for significant returns."
+      }
+    },
+    "invester-type": {
+      "title": "Investor Type",
+      "description": "",
+      "options": {
+        "Private investor": "Private investor",
+        "Business angel": "Business angel",
+        "Professional": "Professional",
+        "Family office": "Family office",
+        "Institutional": "Institutional"
+      }
+    },
+    "stage": {
+      "title": "Investment Stage",
+      "title2": "Investment Stages",
+      "description": "",
+      "options": {
+        "Pre-Seed": "Pre-Seed",
+        "Seed": "Seed",
+        "Series A": "Series A",
+        "Series B": "Series B",
+        "Series C": "Series C",
+        "Series D+": "Series D+",
+        "Pre IPO": "Pre IPO",
+        "Initial Public Offering": "Initial Public Offering",
+        "Acquisition": "Acquisition",
+        "Broad-Stage VC Portfolio": "Broad-Stage VC Portfolio",
+        "Early Stage": "Early Stage",
+        "Early to Late Stage": "Early to Late Stage",
+        "Growth Stage": "Growth Stage",
+        "High-Growth Opportunities": "High-Growth Opportunities",
+        "Lifecycle Investments": "Lifecycle Investments",
+        "Strategic Stage Investments": "Strategic Stage Investments"
+      },
+      "descriptions": {
+        "Pre-Seed": "At this very early stage, the company often has an innovative idea but no product or service on the market yet. The risk is high, but the potential for high returns is also great.",
+        "Seed": "The company has a working prototype or MVP (Minimum Viable Product) and is seeking funding to scale the business. The risk is still high, but less than in the pre-seed phase.",
+        "Series A": "The company has a product or service on the market and is starting to generate revenue. Investments at this stage are often used to expand the business and increase market share.",
+        "Series B": "The company is well-established and has a strong market position. Investments at this stage are often used to fund product development, marketing, and expansion into new markets.",
+        "Initial Public Offering": "Initial Public Offering, i.e. the initial listing on the stock exchange."
+      }
+    },
+    "minimal-ticket-size": {
+      "title": "Minimal Ticket Size",
+      "description": "Ticket size is a term commonly used in investing and simply refers to the size of an investment. It is the total amount an investor puts into a specific project or company."
+    },
+    "target": {
+      "title": "Target",
+      "description": "The Investment Target for this deal represents the total amount of capital needed to fund this project or the current investment round."
+    },
+    "return-rate": {
+      "title": "Internal Rate of Return (IRR)",
+      "description": "The Internal Rate of Return (IRR) is a financial metric used to estimate the profitability of potential investments. It represents the expected annualized rate of return that an investment is anticipated to generate. A higher IRR generally indicates a more attractive investment opportunity."
+    },
+    "risk-factor": {
+      "title": "Risk Factor",
+      "title2": "Risk Tolerance",
+      "description": "Risk factors are conditions, situations, or events that increases the likelihood of an unfavorable outcome, such as a loss on an investment. These can be both internal factors, related to the specific investment or company, and external factors, influenced by market conditions or economic trends.\n\nWe identify and assess risk factors and summarize them into three risk levels; low, medium and high.",
+      "options": {
+        "Low": "Low",
+        "Medium": "Medium",
+        "High": "High"
+      }
+    },
+    "investment-overview": {
+      "title": "Your Current Investment Overview",
+      "options": {
+        "I have a good overview": "I have a good overview",
+        "I don't have a complete overview": "I don't have a complete overview"
+      }
+    },
+    "next-investment-timeframe": {
+      "title": "Timeframe for the Next Investment",
+      "options": {
+        "0-3 months": "0-3 months",
+        "3-6 months": "3-6 months",
+        "6-12 months": "6-12 months",
+        "12+ months": "12+ months"
+      }
+    },
+    "average-investment-size": {
+      "title": "Average Investment Size",
+      "options": {
+        "< 100 000 SEK": "< 100 000 SEK",
+        "100 000 - 500 000 SEK": "100 000 - 500 000 SEK",
+        "500 000 - 1 000 000 SEK": "500 000 - 1 000 000 SEK",
+        "1-5 MSEK": "1-5 million SEK",
+        "5-10 MSEK": "5-10 million SEK",
+        "10+ MSEK": "10+ million SEK"
+      }
+    },
+    "portfolio-size": {
+      "title": "Portfolio Size (AUM)",
+      "options": {
+        "0-3 million SEK": "0-3 million SEK",
+        "3-5 million SEK": "3-5 million SEK",
+        "5-10 million SEK": "5-10 million SEK",
+        "10-20 million SEK": "10-20 million SEK",
+        "20-50 million SEK": "20-50 million SEK",
+        "50+ million SEK": "50+ million SEK"
+      }
+    },
+    "investment-strategy": {
+      "title": "Investment Strategy",
+      "options": {
+        "Value": "Value",
+        "Growth": "Growth",
+        "Index": "Index",
+        "Dividend": "Dividend"
+      }
+    },
+    "placement-type": {
+      "title": "Placement Type",
+      "options": {
+        "Convertible Note": "Convertible Note",
+        "Publicly traded shares": "Publicly traded shares",
+        "Private shares": "Private shares",
+        "Loan": "Loan",
+        "SAFE": "SAFE",
+        "Funds": "Funds",
+        "Commodities": "Commodities",
+        "Futures": "Futures",
+        "Bonds": "Bonds",
+        "Crypto": "Crypto"
+      }
+    },
+    "placement-horizon": {
+      "title": "Placement Horizon",
+      "options": {
+        "less than 1 year": "< 1 year",
+        "1-2 years": "1-2 years",
+        "3-5 years": "3-5 years",
+        "more than 5 years": "> 5 years"
+      }
+    },
+    "primary-investment-target": {
+      "title": "Primary Investment Target",
+      "options": {
+        "Capital growth": "Capital growth",
+        "Income generation": "Income generation",
+        "Capital preservation": "Capital preservation"
+      }
+    },
+    "investing-for": {
+      "title": "Investing on behalf of",
+      "options": {
+        "myself": "Myself",
+        "company": "My company"
+      }
+    }
+  },
+  "OpportunityPage": {
+    "missing-opportunity": "No such opportunity in out system!",
+    "opportunity-image-alt": "{name} opportunity image",
+    "headquarters-in": "Head quarters in {headquarters}",
+    "investors": "Investors",
+    "memorandum": "View details (PDF)",
+    "verifiedLink": "Subscription Form",
+    "status": {
+      "Coming soon": "Coming soon",
+      "Ongoing": "Ongoing",
+      "Finished": "Finished"
+    }
+  },
+  "OpportunitiesPage": {
+    "title": "Explore other opportunities",
+    "description": "Selected opportunities",
+    "best-match-image-alt": "Best matched opportunity image",
+    "opportunities-count": "Showing {count} opportunities",
+    "no-data": "There are currently no opportunities!"
+  },
+  "ProfilePage": {
+    "edit-profile": "Edit profile",
+    "need-more-info-description": "In order for us to be able to match your profile with suitable opportunities we need to know a bit more about you.",
+    "need-verification": "Need verification",
+    "awaiting-verification": "Awaiting verification",
+    "verify": "Verify",
+    "send-again-notification": "Can send it again after 5 mins",
+    "reverification-notification": "Verification is needed if edited",
+    "welcome-title": "Welcome to the digital part of Kapita",
+    "welcome-description": "We've pre-filled some of your profile information based on your previous interactions with us through other channels. Please review your details and make any necessary changes.",
+    "tabs": {
+      "about-investor": "About the investor",
+      "needs-analysis": "Needs analysis"
+    },
+    "investing-on-behalf": {
+      "title": "About the investor",
+      "subtitle": "Investing on behalf of",
+      "myself": "Myself",
+      "company": "My company"
+    },
+    "titles": {
+      "contact-info": "Your contact info",
+      "geography": "Geography",
+      "investment-activity": "Investment Activity"
+    },
+    "errors": {
+      "image-too-large": "The image is too large. Please upload an image smaller than {size}MB."
+    }
+  },
+  "SecondaryPage": {
+    "title": "Secondary",
+    "description": "Secondaries offer a unique opportunity to invest in established, high-growth companies. By purchasing shares directly from existing investors, you can gain exposure to promising businesses that aren't publicly traded. This strategy can provide a more diversified portfolio and potentially higher returns.\n\nWe are developing our platform so you will be able to read about, buy, and sell unlisted shares directly on the platform. Until that is ready, we operate as a traditional broker via email and phone. Register your interest here, and we will get back to you!",
+    "question": "Are you interested to buy and/or sell secondary?",
+    "interest-confirmation": "We have received your expression of interest and will be in touch via email or phone using the contact information in your profile.",
+    "no-options-selected": "You have to choose at least one option to express interest."
+  },
+  "SettingsPage": {
+    "title": "Settings",
+    "communication": {
+      "title": "Communication",
+      "description": "Customize your email preferences from Kapita here.",
+      "subscriptions": {
+        "238798626": "Investment Opportunities",
+        "329034489": "Marketing Information",
+        "unsubscribe-all": "Unsubscribe all"
+      }
+    },
+    "language": {
+      "title": "Language",
+      "description": "Here you can choose your language setting for this platform.",
+      "language-options": {
+        "en": "English",
+        "sv": "Svenska"
+      }
+    },
+    "integrity": {
+      "title": "Integrity",
+      "description": "You have the right to delete all your data and your profile.",
+      "delete-profile": "Delete profile",
+      "pop-up": {
+        "title": "Delete your profile?",
+        "description": "If you delete your profile you will no longer have digital access to our network.",
+        "confirm": "Delete my profile",
+        "cancel": "Cancel, I don't want to delete my profile"
+      },
+      "reauth": {
+        "title": "Security check needed!",
+        "description": "For security reasons, you need to log in again to delete your account. Once you've relogged, you will have 5 minutes to complete the account deletion process."
+      }
+    }
+  },
+  "LoginPage": {
+    "titles": {
+      "log-in-create-account": "Log in or create account",
+      "welcome-back": "Welcome back",
+      "create-account": "Create account",
+      "password-reset": "Reset password"
+    },
+    "info": {
+      "description": "Kapita strives to be the leading partner for entrepreneurs and companies that want to create long-term value.",
+      "benefits": {
+        "exclusive-access": "Exclusive access to top-tier PE Funds",
+        "lower-investments": "Lower minimum investments for qualified professionals",
+        "rigorous-manager": "Rigorous manager due diligence"
+      }
+    },
+    "background-image-alt": "Background image",
+    "disclaimer": "By continuing you approve our",
+    "type-verification": "Type the verification code",
+    "verify-email": "Verify email",
+    "verify-phone": "Verify phone number",
+    "send-verification-code": "Send verification code",
+    "create-account": "Create account",
+    "choose-password": "Choose password",
+    "forgot-password": "Forgot password?",
+    "password-reset": {
+      "description": "Choose a new, safe password that you do not use on other sites.",
+      "input-label": "Enter your new password",
+      "set-password": "Set password",
+      "successful-reset": "Successful password reset",
+      "successful-reset-info": "Your new password has been set and you are now logged in."
+    }
+  },
+  "WizardPage": {
+    "title": "Welcome to Kapita Investment Group",
+    "description": "Answer a few short questions to help us match you with investment opportunities.",
+    "end-title": "Your profile is done!",
+    "end-description": "We have now matched your profile with business opportunities that we would like to present to you.",
+    "show-opportunities": "Show opportunities",
+    "start-needs-analysis": "Start needs analysis",
+    "start-know-your-customer": "Start KYC",
+    "stage": {
+      "profile": "Create profile",
+      "needs-analysis": "Needs Analysis",
+      "know-your-customer": "Know your customer"
+    },
+    "step-titles": {
+      "profile-1": "Who are you investing for?",
+      "profile-2-myself": "Who are you that's investing?",
+      "profile-2-company": "For which company are you investing?",
+      "profile-3": "What's your address?",
+      "needs-analysis-1": "What kind of investor are you?",
+      "needs-analysis-2": "What is your primary investment goal?",
+      "needs-analysis-3": "What is your investment horizon?",
+      "needs-analysis-4": "What types of financial assets are you interested in?",
+      "needs-analysis-5": "Which sectors are most interesting to you?",
+      "needs-analysis-6": "Which investment stages are most interesting to you?",
+      "needs-analysis-7": "How large is your portfolio today?",
+      "needs-analysis-8": "What is your average investment size?",
+      "needs-analysis-9": "What is your risk tolerance?",
+      "needs-analysis-10": "When are you open to new investment opportunities?",
+      "needs-analysis-11": "What is your investment strategy?",
+      "needs-analysis-12": "Do you have a good overview of all your investments and where they are stored?"
+    }
+  },
+  "Menu": {
+    "nav": {
+      "home": "Home",
+      "profile": "Your Profile",
+      "profile-image": "Profile image",
+      "opportunities": "Opportunities",
+      "secondary": "Secondary"
+    },
+    "todo": "To do",
+    "update-profile": "Update profile",
+    "homepage": "Homepage"
+  },
+  "Metadata": {
+    "title": "Kapita Investment Group",
+    "description": "Where capital and opportunity converge"
+  },
+  "Errors": {
+    "required": "Required!",
+    "incorrect-email-format": "Enter an email in a valid format e.g. name@email.com",
+    "incorrect-phone-format": "Enter a phone number in a valid format e.g. +46723456789",
+    "auth/invalid-credential": "Wrong password. Try again or click Forgot Password to reset it.",
+    "auth/weak-password": "Password is too weak! At least 8 characters.",
+    "auth/email-already-in-use": "Email is already in use.",
+    "auth/password-does-not-meet-requirements": "You need a stronger password.\n\nThe password needs to meet these requirements:\n- At least one uppercase letter (A-Z)\n- At least one lowercase letter (a-z)\n- At least one numeric digit (0-9)\n- At least one special character (e.g., !@#$%^&*)\n- A minimum length of 8 characters",
+    "auth/account-exists-with-different-credential": "It looks like you've already used this email address to sign up another way. Please try logging in using the same way as you did during sign up.",
+    "wrong-code": "Wrong code!",
+    "wrong-person-number-format": "Invalid personal number format."
+  },
+  "Messages": {
+    "contacting": "Sending request",
+    "contacted": "Request sent",
+    "error": "Could not contact! Please, reach out to our help service."
+  },
+  "Emails": {
+    "email-verification": {
+      "subject": "Kapita - Verify your email address",
+      "title": "Verify your email address",
+      "description": "To continue setting up your Kapita account, please verify that this is your email address.",
+      "button": "Verify email address",
+      "footer": "This link is valid for 5 days. If you did not make the request, you can ignore this message. For questions, contact us at ",
+      "missing-code": "Code is missing!",
+      "verifying": "Your email is being verified...",
+      "verified": "Email verified!",
+      "error": "Could not verify email! Make sure that the link is valid and not expired and try again."
+    },
+    "notifications": {
+      "sending": "Sending...",
+      "sent": "Email sent!",
+      "error": "Error occured!"
+    }
+  }
+}
