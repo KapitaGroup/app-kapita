@@ -1,7 +1,8 @@
 'use client'
 import RadioButton from '@/components/RadioButton'
 import {useLocale, useTranslations} from 'next-intl'
-import {languageIcons, LocaleType, routing, usePathname, useRouter} from '@/i18n/routing'
+import {LocaleType, routing, usePathname, useRouter} from '@/i18n/routing'
+import {languageIcons} from '@/i18n/languageIcons'
 
 const LanguageSwitcher = () => {
   const t = useTranslations('SettingsPage.language.language-options')

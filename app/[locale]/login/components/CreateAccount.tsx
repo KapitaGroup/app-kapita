@@ -7,7 +7,7 @@ import {LoginForm} from './Section'
 import Input from '@/components/form/Input'
 import Button from '@/components/Button'
 import VerifiedIcon from '@/icons/VerifiedIcon'
-import {useEffect, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {createAccountWithEmail, signOut} from '@/libs/firebase/auth'
 import type {GoogleAuthCodesType} from '@/utils/types'
 import {useProfileCreate} from '@/hooks/useProfileCreate'
@@ -17,23 +17,23 @@ import Error from '@/components/form/Error'
 const CreateAccount = () => {
   const {push} = useRouter()
   const t = useTranslations()
-  const {watch, reset, setFocus, setValue} = useFormContext<LoginForm>()
+  const {watch, getValues, reset, setFocus, setValue} = useFormContext<LoginForm>()
   const [verificationId, setVerificationId] = useState('')
-  const [isVerificationSending, setIsVerificationSending] = useState(false)
   const [isVerifying, setIsVerifying] = useState(false)
   const [isCreatingAccount, setIsCreatingAccount] = useState(false)
   const createProfile = useProfileCreate()
   const locale = useLocale()
+  const hasSentRef = useRef(false)
 
   useEffect(() => {
-    if (isVerificationSending || !!verificationId) return
+    if (hasSentRef.current) return
+    hasSentRef.current = true
 
     const sendVerification = async () => {
-      setIsVerificationSending(true)
       const response = await toast.promise(
         fetch(`/api/verifications?locale=${locale}`, {
           method: 'POST',
-          body: JSON.stringify({email: watch('email')})
+          body: JSON.stringify({email: getValues('email')})
         }),
         {
           loading: t('Emails.notifications.sending'),
@@ -44,18 +44,15 @@ const CreateAccount = () => {
 
       const {id} = (await response.json()) as {id: string}
 
-      if (!id) {
-        setIsVerificationSending(false)
-        return
-      }
+      if (!id) return
 
       setVerificationId(id)
       setTimeout(() => setFocus('emailVerificationCode'), 100)
-      setIsVerificationSending(false)
     }
 
     sendVerification()
-  }, [isVerificationSending, locale, setFocus, t, verificationId, watch])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const onCreateAccount = async () => {
     const watches = watch()

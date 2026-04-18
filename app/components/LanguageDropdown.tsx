@@ -1,5 +1,6 @@
 'use client'
-import {languageIcons, type LocaleType, routing, usePathname, useRouter} from '@/i18n/routing'
+import {type LocaleType, routing, usePathname, useRouter} from '@/i18n/routing'
+import {languageIcons} from '@/i18n/languageIcons'
 import {useLocale} from 'next-intl'
 import {useState} from 'react'
 import ChevronIcon from '@/icons/ChevronIcon'

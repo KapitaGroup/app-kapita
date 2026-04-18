@@ -1,16 +1,44 @@
-import {useTranslations} from 'next-intl'
+'use client'
+import {useTranslations, useLocale} from 'next-intl'
 import Button from '@/components/Button'
 import Image from 'next/image'
 import bgImage from '/public/images/login_background.png'
 import VerifiedIcon from '@/icons/VerifiedIcon'
+import {useRouter, usePathname} from '@/i18n/routing'
+import EnglishFlagIcon from '@/icons/EnglishFlagIcon'
+import SwedishFlagIcon from '@/icons/SwedishFlagIcon'
+import type {LocaleType} from '@/i18n/routing'
 
 const Layout = ({children}: Readonly<{children: React.ReactNode}>) => {
   const t = useTranslations()
+  const locale = useLocale()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const switchLocale = (newLocale: LocaleType) => {
+    router.replace(pathname, {locale: newLocale})
+  }
 
   return (
     <div className="flex h-screen w-full">
       <div className="col-span-4 flex h-full w-full flex-col justify-between bg-white p-4 max-content-width xl:col-span-8 xl:col-start-3 xl:p-12">
-        {children}
+        <div className="flex flex-col gap-8">
+          <div className="flex justify-end gap-2">
+            <button
+              onClick={() => switchLocale('en')}
+              className={`flex items-center gap-1.5 rounded-md px-2 py-1 text-sm transition-colors ${locale === 'en' ? 'bg-neutral-100 font-medium' : 'text-neutral-400 hover:text-neutral-700'}`}>
+              <EnglishFlagIcon className="h-4 w-4" />
+              EN
+            </button>
+            <button
+              onClick={() => switchLocale('sv')}
+              className={`flex items-center gap-1.5 rounded-md px-2 py-1 text-sm transition-colors ${locale === 'sv' ? 'bg-neutral-100 font-medium' : 'text-neutral-400 hover:text-neutral-700'}`}>
+              <SwedishFlagIcon className="h-4 w-4" />
+              SV
+            </button>
+          </div>
+          {children}
+        </div>
         <div>
           <p className="text-disclaimer">{t('LoginPage.disclaimer')}</p>
           <div className="flex items-center gap-x-2">

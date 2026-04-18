@@ -4,7 +4,10 @@ import {
   FacebookAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword,
-  createUserWithEmailAndPassword
+  createUserWithEmailAndPassword,
+  signInWithPhoneNumber,
+  RecaptchaVerifier,
+  type ConfirmationResult
 } from 'firebase/auth'
 import {auth} from './config-client'
 import {FirebaseError} from '@firebase/util'
@@ -138,6 +141,33 @@ export const createAccountWithEmail = async (email: string, password: string) =>
     return {user: userCredentials.user}
   } catch (error) {
     console.error('Error creating account with Email on Google', error)
+    return {error: error as FirebaseError}
+  }
+}
+
+export const sendPhoneOtp = async (phoneNumber: string): Promise<{confirmationResult?: ConfirmationResult; error?: FirebaseError}> => {
+  try {
+    const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {size: 'invisible'})
+    const confirmationResult = await signInWithPhoneNumber(auth, phoneNumber, recaptchaVerifier)
+    return {confirmationResult}
+  } catch (error) {
+    console.error('Error sending phone OTP', error)
+    return {error: error as FirebaseError}
+  }
+}
+
+export const verifyPhoneOtp = async (confirmationResult: ConfirmationResult, otp: string) => {
+  try {
+    const userCredential = await confirmationResult.confirm(otp)
+    const idToken = await userCredential.user.getIdToken()
+    await fetch('/api/auth/sign-in', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({idToken})
+    })
+    return {user: userCredential.user}
+  } catch (error) {
+    console.error('Error verifying phone OTP', error)
     return {error: error as FirebaseError}
   }
 }
