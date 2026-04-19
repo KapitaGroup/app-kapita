@@ -2,7 +2,6 @@
 import {useTranslations} from 'next-intl'
 import Button from '@/components/Button'
 import ArrowIcon from '@/icons/ArrowIcon'
-import PhoneIcon from '@/icons/PhoneIcon'
 import Input from '@/components/form/Input'
 import {useSearchParams} from 'next/navigation'
 import {useEffect, useState} from 'react'
@@ -54,12 +53,6 @@ const LoginOptions = () => {
     setIsNextLoginLoading(false)
   }
 
-  const onPhoneLogin = () => {
-    setValue('errors', {})
-    setLoginError('')
-    setValue('isPhoneLogin', true)
-  }
-
   return (
     <>
       <Title title="log-in-create-account" />
@@ -74,18 +67,6 @@ const LoginOptions = () => {
           iconPosition="end"
           onClick={onNextClick}
           loading={isNextLoginLoading}
-        />
-        <div className="flex items-center gap-x-2">
-          <span className="w-full border-t-[1px] border-neutral-300" />
-          {t('or')}
-          <span className="w-full border-t-[1px] border-neutral-300" />
-        </div>
-        <Button
-          text={t('LoginPage.continue-with-phone')}
-          variant="outlined"
-          icon={<PhoneIcon />}
-          iconPosition="start"
-          onClick={onPhoneLogin}
         />
         <Error error={loginError} />
       </SectionContainer>

@@ -1,7 +1,6 @@
 import SectionContainer from './SectionContainer'
 import Title from './Title'
 import {useLocale, useTranslations} from 'next-intl'
-import {useRouter} from '@/i18n/routing'
 import {useFormContext} from 'react-hook-form'
 import {LoginForm} from './Section'
 import Input from '@/components/form/Input'
@@ -15,7 +14,6 @@ import toast, {Toaster} from 'react-hot-toast'
 import Error from '@/components/form/Error'
 
 const CreateAccount = () => {
-  const {push} = useRouter()
   const t = useTranslations()
   const {watch, getValues, reset, setFocus, setValue} = useFormContext<LoginForm>()
   const [verificationId, setVerificationId] = useState('')
@@ -107,7 +105,7 @@ const CreateAccount = () => {
 
     await createProfile.mutateAsync(profile)
 
-    push('/profile/create')
+    setValue('isPhoneVerification', true)
   }
 
   const onVerification = async () => {

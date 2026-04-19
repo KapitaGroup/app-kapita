@@ -6,6 +6,8 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInWithPhoneNumber,
+  PhoneAuthProvider,
+  linkWithCredential,
   RecaptchaVerifier,
   type ConfirmationResult
 } from 'firebase/auth'
@@ -169,6 +171,36 @@ export const verifyPhoneOtp = async (confirmationResult: ConfirmationResult, otp
   } catch (error) {
     console.error('Error verifying phone OTP', error)
     return {error: error as FirebaseError}
+  }
+}
+
+/**
+ * Step-2 phone verification: sends OTP linked to the currently signed-in user
+ * (does NOT create a new Firebase user / change the session cookie).
+ */
+export const sendPhoneLink = async (phoneNumber: string): Promise<{verificationId?: string; error?: FirebaseError}> => {
+  try {
+    const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {size: 'invisible'})
+    const phoneProvider = new PhoneAuthProvider(auth)
+    const verificationId = await phoneProvider.verifyPhoneNumber(phoneNumber, recaptchaVerifier)
+    return {verificationId}
+  } catch (error) {
+    console.error('Error sending phone verification', error)
+    return {error: error as FirebaseError}
+  }
+}
+
+export const verifyAndLinkPhone = async (verificationId: string, otp: string): Promise<{success: boolean; error?: FirebaseError}> => {
+  try {
+    const credential = PhoneAuthProvider.credential(verificationId, otp)
+    if (!auth.currentUser) throw new Error('No authenticated user')
+    await linkWithCredential(auth.currentUser, credential)
+    return {success: true}
+  } catch (error: any) {
+    // Already linked is fine — still counts as verified
+    if (error.code === 'auth/provider-already-linked') return {success: true}
+    console.error('Error verifying phone OTP', error)
+    return {success: false, error: error as FirebaseError}
   }
 }
 

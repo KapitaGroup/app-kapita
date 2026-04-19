@@ -6,10 +6,8 @@ import {useTranslations} from 'next-intl'
 import {useFormContext} from 'react-hook-form'
 import {type LoginForm} from './Section'
 import {signInWithEmail} from '@/libs/firebase/auth'
-import {useSearchParams} from 'next/navigation'
 import SectionContainer from './SectionContainer'
 import {useEffect, useState} from 'react'
-import {useRouter} from '@/i18n/routing'
 import type {GoogleAuthCodesType} from '@/utils/types'
 import {sendPasswordResetEmail} from 'firebase/auth'
 import {auth} from '@/libs/firebase/config-client'
@@ -19,8 +17,6 @@ const LoginEmail = () => {
   const [isResettingPassword, setIsResettingPassword] = useState(false)
   const [isResetEmailSent, setIsResetEmailSent] = useState(false)
   const [isLoggingIn, setIsLoggingIn] = useState(false)
-  const searchParams = useSearchParams()
-  const {push} = useRouter()
   const t = useTranslations()
   const {watch, reset, setFocus, setValue} = useFormContext<LoginForm>()
   const watches = watch()
@@ -45,7 +41,7 @@ const LoginEmail = () => {
     }
 
     setIsLoggingIn(false)
-    if (!!response.user) push(searchParams.get('redirect') || '/')
+    if (!!response.user) setValue('isPhoneVerification', true)
   }
 
   const onResetPassword = async () => {
