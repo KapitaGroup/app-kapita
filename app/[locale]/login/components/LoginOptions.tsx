@@ -11,11 +11,9 @@ import Title from './Title'
 import SectionContainer from './SectionContainer'
 import {isEmailValid} from '@/utils/stringValidations'
 import {checkProfileExists} from '@/data/checkProfileExists'
-import Error from '@/components/form/Error'
 
 const LoginOptions = () => {
   const [isNextLoginLoading, setIsNextLoginLoading] = useState(false)
-  const [loginError, setLoginError] = useState('')
   const searchParams = useSearchParams()
   const t = useTranslations()
   const {setFocus, setValue, getValues} = useFormContext<LoginForm>()
@@ -68,7 +66,6 @@ const LoginOptions = () => {
           onClick={onNextClick}
           loading={isNextLoginLoading}
         />
-        <Error error={loginError} />
       </SectionContainer>
     </>
   )
