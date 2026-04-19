@@ -179,13 +179,22 @@ export const verifyPhoneOtp = async (confirmationResult: ConfirmationResult, otp
  * (does NOT create a new Firebase user / change the session cookie).
  */
 export const sendPhoneLink = async (phoneNumber: string): Promise<{verificationId?: string; error?: FirebaseError}> => {
+  let recaptchaVerifier: RecaptchaVerifier | null = null
   try {
-    const recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {size: 'invisible'})
+    // Clear any existing reCAPTCHA widget container content (from previous attempts)
+    const container = document.getElementById('recaptcha-container')
+    if (container) container.innerHTML = ''
+
+    recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {size: 'invisible'})
     const phoneProvider = new PhoneAuthProvider(auth)
     const verificationId = await phoneProvider.verifyPhoneNumber(phoneNumber, recaptchaVerifier)
     return {verificationId}
   } catch (error) {
     console.error('Error sending phone verification', error)
+    // Clean up the reCAPTCHA on error so the next attempt works
+    try {
+      recaptchaVerifier?.clear()
+    } catch {}
     return {error: error as FirebaseError}
   }
 }

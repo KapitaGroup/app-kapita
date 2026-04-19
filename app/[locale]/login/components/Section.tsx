@@ -9,7 +9,6 @@ import type {GoogleAuthCodesType, ProfileType} from '@/utils/types'
 
 export type LoginForm = {
   isEmailSet: boolean
-  isPhoneLogin: boolean
   isPhoneVerification: boolean
   isCreatingAccount: boolean
   emailVerificationCode: string

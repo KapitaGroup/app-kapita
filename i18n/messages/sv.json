@@ -431,7 +431,16 @@
     "auth/password-does-not-meet-requirements": "Du behöver ett starkare lösenord.\n\nLösenordet behöver uppfylla de här kraven:\n- Minst en versal (A-Z)\n- Minst en gemen bokstav (a-z)\n- Minst en siffra (0-9)\n- Minst ett specialtecken (t.ex. !@#$%^&*)\n- Minst 8 tecken långt",
     "auth/account-exists-with-different-credential": "Det verkar som om du redan har använt den här e-postadressen för att registrera dig på ett annat sätt. Vänligen försök logga in på samma sätt som du gjorde vid registreringen.",
     "wrong-code": "Fel verifieringskod!",
-    "wrong-person-number-format": "Ogiltigt format för personnummer."
+    "wrong-person-number-format": "Ogiltigt format för personnummer.",
+    "auth/operation-not-allowed": "Telefonverifiering är inte aktiverad än. Vänligen kontakta support.",
+    "auth/invalid-verification-code": "Fel verifieringskod. Försök igen.",
+    "auth/invalid-phone-number": "Ogiltigt telefonnummer. Kontrollera landskoden och numret.",
+    "auth/missing-phone-number": "Vänligen ange ett telefonnummer.",
+    "auth/quota-exceeded": "För många försök. Försök igen senare.",
+    "auth/captcha-check-failed": "reCAPTCHA-verifiering misslyckades. Vänligen ladda om sidan och försök igen.",
+    "auth/credential-already-in-use": "Detta telefonnummer är redan kopplat till ett annat konto.",
+    "auth/too-many-requests": "För många försök. Försök igen senare.",
+    "auth/unknown": "Något gick fel. Försök igen."
   },
   "Messages": {
     "contacting": "Skickar förfrågan",

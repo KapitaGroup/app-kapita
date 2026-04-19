@@ -1,7 +1,6 @@
 'use client'
 import {useTranslations} from 'next-intl'
 import Button from '@/components/Button'
-import ArrowIcon from '@/icons/ArrowIcon'
 import Input from '@/components/form/Input'
 import {useSearchParams} from 'next/navigation'
 import {useEffect, useState} from 'react'
@@ -10,12 +9,11 @@ import {type LoginForm} from './Section'
 import Title from './Title'
 import SectionContainer from './SectionContainer'
 import {isEmailValid} from '@/utils/stringValidations'
-import {checkProfileExists} from '@/data/checkProfileExists'
 import Error from '@/components/form/Error'
 
 const LoginOptions = () => {
-  const [isNextLoading, setIsNextLoading] = useState(false)
   const [isLoginLoading, setIsLoginLoading] = useState(false)
+  const [isCreateLoading, setIsCreateLoading] = useState(false)
   const [emailError, setEmailError] = useState('')
   const searchParams = useSearchParams()
   const t = useTranslations()
@@ -44,20 +42,7 @@ const LoginOptions = () => {
     return email
   }
 
-  // Checks if account exists and routes to login or create account
-  const onNextClick = async () => {
-    const email = validateEmail()
-    if (!email) return
-
-    setIsNextLoading(true)
-    setValue('errors', {})
-    const profileExists = await checkProfileExists({email})
-    setValue('isCreatingAccount', !profileExists)
-    setValue('isEmailSet', true)
-    setIsNextLoading(false)
-  }
-
-  // Skips the profile check — goes straight to the password screen
+  // Existing users → go directly to password screen
   const onLoginClick = () => {
     const email = validateEmail()
     if (!email) return
@@ -69,12 +54,24 @@ const LoginOptions = () => {
     setIsLoginLoading(false)
   }
 
+  // New users → go directly to create-account flow (Firebase will reject if email already exists)
+  const onCreateClick = () => {
+    const email = validateEmail()
+    if (!email) return
+
+    setIsCreateLoading(true)
+    setValue('errors', {})
+    setValue('isCreatingAccount', true)
+    setValue('isEmailSet', true)
+    setIsCreateLoading(false)
+  }
+
   return (
     <>
       <Title title="log-in-create-account" />
       <SectionContainer>
         <div>
-          <Input name="email" label={t('email')} onEnter={onNextClick} />
+          <Input name="email" label={t('email')} onEnter={onLoginClick} />
         </div>
         <Button
           text={t('login')}
@@ -82,24 +79,18 @@ const LoginOptions = () => {
           onClick={onLoginClick}
           loading={isLoginLoading}
         />
-        <div className="flex items-center gap-x-2">
+        <div className="flex items-center gap-x-2 py-1">
           <span className="w-full border-t-[1px] border-neutral-300" />
-          {t('or')}
+          <span className="text-sm text-neutral-500">{t('or')}</span>
           <span className="w-full border-t-[1px] border-neutral-300" />
         </div>
         <Button
           text={t('LoginPage.create-new-account')}
-          variant="link"
-          icon={<ArrowIcon />}
-          iconPosition="end"
-          onClick={onNextClick}
-          loading={isNextLoading}
-          fluid={false}
-          className="flex items-center justify-center gap-1"
+          variant="outlined"
+          onClick={onCreateClick}
+          loading={isCreateLoading}
         />
-        {!!emailError && (
-          <Error error={emailError} />
-        )}
+        {!!emailError && <Error error={emailError} />}
       </SectionContainer>
     </>
   )

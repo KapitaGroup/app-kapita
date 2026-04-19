@@ -431,7 +431,16 @@
     "auth/password-does-not-meet-requirements": "You need a stronger password.\n\nThe password needs to meet these requirements:\n- At least one uppercase letter (A-Z)\n- At least one lowercase letter (a-z)\n- At least one numeric digit (0-9)\n- At least one special character (e.g., !@#$%^&*)\n- A minimum length of 8 characters",
     "auth/account-exists-with-different-credential": "It looks like you've already used this email address to sign up another way. Please try logging in using the same way as you did during sign up.",
     "wrong-code": "Wrong code!",
-    "wrong-person-number-format": "Invalid personal number format."
+    "wrong-person-number-format": "Invalid personal number format.",
+    "auth/operation-not-allowed": "Phone verification is not enabled yet. Please contact support.",
+    "auth/invalid-verification-code": "Wrong verification code. Please try again.",
+    "auth/invalid-phone-number": "Invalid phone number. Please check the country code and number.",
+    "auth/missing-phone-number": "Please enter a phone number.",
+    "auth/quota-exceeded": "Too many attempts. Please try again later.",
+    "auth/captcha-check-failed": "reCAPTCHA verification failed. Please refresh and try again.",
+    "auth/credential-already-in-use": "This phone number is already linked to another account.",
+    "auth/too-many-requests": "Too many attempts. Please try again later.",
+    "auth/unknown": "Something went wrong. Please try again."
   },
   "Messages": {
     "contacting": "Sending request",
