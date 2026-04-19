@@ -4,20 +4,24 @@ import Button from '@/components/Button'
 import Input from '@/components/form/Input'
 import {useSearchParams} from 'next/navigation'
 import {useEffect, useState} from 'react'
-import {useFormContext} from 'react-hook-form'
+import {useFormContext, useWatch} from 'react-hook-form'
 import {type LoginForm} from './Section'
 import Title from './Title'
 import SectionContainer from './SectionContainer'
 import {isEmailValid} from '@/utils/stringValidations'
-import Error from '@/components/form/Error'
 
 const LoginOptions = () => {
   const [isLoginLoading, setIsLoginLoading] = useState(false)
   const [isCreateLoading, setIsCreateLoading] = useState(false)
-  const [emailError, setEmailError] = useState('')
   const searchParams = useSearchParams()
   const t = useTranslations()
-  const {setFocus, setValue, getValues} = useFormContext<LoginForm>()
+  const {control, setFocus, setValue, getValues} = useFormContext<LoginForm>()
+
+  // Auto-clear validation errors as soon as the user starts typing
+  const watchedEmail = useWatch({control, name: 'email'})
+  useEffect(() => {
+    if (!!watchedEmail) setValue('errors', {})
+  }, [watchedEmail, setValue])
 
   useEffect(() => {
     setFocus('email')
@@ -29,41 +33,39 @@ const LoginOptions = () => {
   }, [searchParams, setValue])
 
   const validateEmail = () => {
-    const email = getValues('email')
+    const email = getValues('email')?.trim()
     if (!email) {
-      setEmailError('required')
+      setValue('errors', {email: 'required'})
+      setFocus('email')
       return null
     }
     if (!isEmailValid(email)) {
-      setEmailError('incorrect-email-format')
+      setValue('errors', {email: 'incorrect-email-format'})
+      setFocus('email')
       return null
     }
-    setEmailError('')
+    setValue('errors', {})
     return email
   }
 
-  // Existing users → go directly to password screen
+  // Existing users → straight to password screen
   const onLoginClick = () => {
     const email = validateEmail()
     if (!email) return
 
     setIsLoginLoading(true)
-    setValue('errors', {})
     setValue('isCreatingAccount', false)
     setValue('isEmailSet', true)
-    setIsLoginLoading(false)
   }
 
-  // New users → go directly to create-account flow (Firebase will reject if email already exists)
+  // New users → create-account flow (Firebase rejects duplicate emails)
   const onCreateClick = () => {
     const email = validateEmail()
     if (!email) return
 
     setIsCreateLoading(true)
-    setValue('errors', {})
     setValue('isCreatingAccount', true)
     setValue('isEmailSet', true)
-    setIsCreateLoading(false)
   }
 
   return (
@@ -71,7 +73,7 @@ const LoginOptions = () => {
       <Title title="log-in-create-account" />
       <SectionContainer>
         <div>
-          <Input name="email" label={t('email')} onEnter={onLoginClick} />
+          <Input name="email" label={t('email')} type="email" autoComplete="email" onEnter={onLoginClick} />
         </div>
         <Button
           text={t('login')}
@@ -90,7 +92,6 @@ const LoginOptions = () => {
           onClick={onCreateClick}
           loading={isCreateLoading}
         />
-        {!!emailError && <Error error={emailError} />}
       </SectionContainer>
     </>
   )
