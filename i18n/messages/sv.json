@@ -440,6 +440,7 @@
     "auth/captcha-check-failed": "reCAPTCHA-verifiering misslyckades. Vänligen ladda om sidan och försök igen.",
     "auth/credential-already-in-use": "Detta telefonnummer är redan kopplat till ett annat konto.",
     "auth/too-many-requests": "För många försök. Försök igen senare.",
+    "auth/billing-not-enabled": "SMS-verifiering kräver att Firebase-fakturering är aktiverad. Vänligen kontakta support.",
     "auth/unknown": "Något gick fel. Försök igen."
   },
   "Messages": {

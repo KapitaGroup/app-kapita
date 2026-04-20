@@ -440,6 +440,7 @@
     "auth/captcha-check-failed": "reCAPTCHA verification failed. Please refresh and try again.",
     "auth/credential-already-in-use": "This phone number is already linked to another account.",
     "auth/too-many-requests": "Too many attempts. Please try again later.",
+    "auth/billing-not-enabled": "SMS verification requires Firebase billing to be enabled. Please contact support.",
     "auth/unknown": "Something went wrong. Please try again."
   },
   "Messages": {
