@@ -3,7 +3,7 @@ import {useLocale, useTranslations} from 'next-intl'
 import Step from '../../components/Step'
 import {type CreateProfileForm} from '../page'
 import {useFormContext} from 'react-hook-form'
-import {type LocaleType} from '@/i18n/routing'
+import {type LocaleType, useRouter} from '@/i18n/routing'
 import {useState} from 'react'
 import {countriesToOptions, countryList, countryListNordic} from '@/utils/countries'
 import RadioField from '@/app/[locale]/(with menu)/profile/components/RadioField'
@@ -12,16 +12,15 @@ import Field from '@/app/[locale]/(with menu)/profile/components/Field'
 import Input from '@/components/form/Input'
 import Dropdown from '@/components/form/Dropdown'
 import {onboardingUpdateProfile} from '@/services/profile'
-import {useRouter} from 'next/navigation'
-import type {ContactFormsCompletedType} from '@/utils/types'
 import {getOrganizationInfo} from '@/libs/bolagsverket/client'
+import {auth} from '@/libs/firebase/config-client'
+import {saveLocalOnboardingProgress} from '@/utils/onboardingProgress'
 
 type Props = {
   step: number
   onNextStep: () => void
-  formStates?: ContactFormsCompletedType
 }
-const ProfileCreateSteps = ({step, onNextStep, formStates}: Props) => {
+const ProfileCreateSteps = ({step, onNextStep}: Props) => {
   const t = useTranslations()
   const {watch, setValue} = useFormContext<CreateProfileForm>()
   const watches = watch()
@@ -60,9 +59,8 @@ const ProfileCreateSteps = ({step, onNextStep, formStates}: Props) => {
       const {isEdit, ...profile} = watches
       await onboardingUpdateProfile(profile)
 
-      if (!formStates?.needsAnalysisCompleted) router.push('/profile/needs-analysis')
-      // else if (!formStates?.knowYourCustomerCompleted) router.push('/profile/know-your-customer')
-      else router.push('/')
+      saveLocalOnboardingProgress(auth.currentUser?.uid, {profileCompleted: true})
+      router.push('/profile/needs-analysis')
     } catch (error) {
       console.error('Error while saving profile.', error)
     } finally {

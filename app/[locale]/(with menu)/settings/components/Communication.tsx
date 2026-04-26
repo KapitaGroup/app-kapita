@@ -18,6 +18,7 @@ const Communication = () => {
   const [savingSubs, setSavingSubs] = useState<number[]>([])
   const subscriptionsUpdate = useSubscriptionsUpdate()
   const queryClient = useQueryClient()
+  const subscriptionList = Array.isArray(subscriptions) ? subscriptions : []
 
   const onSubscriptionChange = (subs: SubscriptionType[], unsubscribe?: boolean) => {
     subs.map(sub => setSavingSubs(prev => [...prev, sub.subscriptionId]))
@@ -67,7 +68,7 @@ const Communication = () => {
       ) : (
         <div className="flex flex-col items-end pr-6">
           {HubSpotSubscriptionIDs?.map(subscriptionId => {
-            const sub = subscriptions?.find(sub => sub.subscriptionId === subscriptionId)
+            const sub = subscriptionList.find(sub => sub.subscriptionId === subscriptionId)
             const disabled = savingSubs.includes(subscriptionId)
 
             return (
@@ -96,7 +97,7 @@ const Communication = () => {
             variant="link"
             fluid={false}
             disabled={!!savingSubs.length}
-            onClick={() => onSubscriptionChange(subscriptions ?? [], true)}
+            onClick={() => onSubscriptionChange(subscriptionList, true)}
           />
         </div>
       )}

@@ -4,6 +4,8 @@ import {useEffect} from 'react'
 import {usePathname, useRouter} from '@/i18n/routing'
 import {useProfile} from './useProfile'
 import {formsCompletedHubspot} from '@/services/hubspot'
+import {hasCompletedProfile, hasNeedsAnalysisData} from '@/utils/profileCompletion'
+import {readLocalOnboardingProgress} from '@/utils/onboardingProgress'
 
 export const useUserProtection = () => {
   const [user, isUserLoading] = useAuthState(auth)
@@ -23,11 +25,16 @@ export const useUserProtection = () => {
 
     const profileFormsCompletedGuard = async () => {
       const formsStates = await formsCompletedHubspot(profile?.email)
-      if (!formsStates?.profileCompleted) {
+      const localProgress = readLocalOnboardingProgress(user.uid)
+      const profileCompleted = localProgress.profileCompleted || formsStates?.profileCompleted || hasCompletedProfile(profile)
+      const needsAnalysisCompleted =
+        localProgress.needsAnalysisCompleted || formsStates?.needsAnalysisCompleted || hasNeedsAnalysisData(profile)
+
+      if (!profileCompleted) {
         push(`/profile/create`)
         return
       }
-      if (!formsStates?.needsAnalysisCompleted) {
+      if (!needsAnalysisCompleted) {
         push(`/profile/needs-analysis`)
         return
       }
@@ -35,7 +42,7 @@ export const useUserProtection = () => {
     }
 
     profileFormsCompletedGuard()
-  }, [isUserLoading, isLoading, user?.uid, pathname, push, profile?.email])
+  }, [isUserLoading, isLoading, user?.uid, pathname, push, profile])
 
   return !isUserLoading && !isLoading && !!user?.uid
 }

@@ -9,7 +9,8 @@ export const useSubscriptions = () => {
     ['subscriptions', user?.uid],
     async () => {
       const response = await fetch('/api/profile/subscriptions')
-      return await response.json()
+      const data = await response.json()
+      return Array.isArray(data) ? data : []
     },
     {
       enabled: !isAuthLoading && !!user?.uid,

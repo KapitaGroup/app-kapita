@@ -3,7 +3,7 @@ import {useTranslations} from 'next-intl'
 import Step from '../../components/Step'
 import {useFormContext} from 'react-hook-form'
 import RadioField from '@/app/[locale]/(with menu)/profile/components/RadioField'
-import {useRouter} from 'next/navigation'
+import {useRouter} from '@/i18n/routing'
 import BadgeField from '@/app/[locale]/(with menu)/profile/components/BadgeField'
 import {
   AverageInvestmentSizeList,
@@ -23,6 +23,8 @@ import {type NeedsAnalysisForm} from '../page'
 import {onboardingUpdateNeedsAnalysisHubspot} from '@/services/hubspot'
 import {useState} from 'react'
 import type {ContactFormsCompletedType} from '@/utils/types'
+import {auth} from '@/libs/firebase/config-client'
+import {saveLocalOnboardingProgress} from '@/utils/onboardingProgress'
 
 type Props = {
   step: number
@@ -45,10 +47,10 @@ const NeedsAnalysisSteps = ({step, onNextStep, email}: Props) => {//, formStates
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const {isEdit, ...needsAnalysis} = watches
       await onboardingUpdateNeedsAnalysisHubspot(email, needsAnalysis)
+      saveLocalOnboardingProgress(auth.currentUser?.uid, {profileCompleted: true, needsAnalysisCompleted: true})
 
       if (!!email) {
-// !!FIX THE + in the email handling!
-        router.push(`/login?email=${email}`)
+        router.push(`/login?email=${encodeURIComponent(email)}`)
         return
       }
 

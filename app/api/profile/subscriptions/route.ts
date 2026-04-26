@@ -19,11 +19,16 @@ export const GET = async () => {
     }
   })
 
-  if (!response.ok) return Response.json({message: 'Could not get subscriptions.'}, {status: 400})
+  if (!response.ok) {
+    console.error('Could not get HubSpot subscriptions.', response.status)
+    return Response.json([])
+  }
 
-  const settings = (await response.json()).results
-    ?.filter((subscription: SubscriptionType) => HubSpotSubscriptionIDs.includes(subscription.subscriptionId))
+  const results = (await response.json()).results
+  const settings = (Array.isArray(results) ? results : [])
+    .filter((subscription: SubscriptionType) => HubSpotSubscriptionIDs.includes(subscription.subscriptionId))
     .map(({subscriptionId, status}: SubscriptionType) => ({subscriptionId, status}) as SubscriptionType)
+
   return Response.json(settings)
 }
 

@@ -1,5 +1,5 @@
 'use client'
-import {useRouter} from 'next/navigation'
+import {useRouter} from '@/i18n/routing'
 import {useEffect, useState} from 'react'
 import Introduction from '../components/Introduction'
 import {auth} from '@/libs/firebase/config-client'
@@ -11,6 +11,9 @@ import ProfileCreateSteps from './components/ProfileCreateSteps'
 import StageStatus from '../components/StageStatus'
 import {ProfileOnboardingStages} from '@/utils/lists'
 import {formsCompletedHubspot} from '@/services/hubspot'
+import {useProfile} from '@/hooks/useProfile'
+import {hasCompletedProfile, hasNeedsAnalysisData} from '@/utils/profileCompletion'
+import {readLocalOnboardingProgress} from '@/utils/onboardingProgress'
 
 const PROFILE_STEPS = 3
 
@@ -20,6 +23,7 @@ export type CreateProfileForm = Pick<
 > & {isEdit: boolean}
 const Page = () => {
   const [user, isUserLoading] = useAuthState(auth)
+  const {profile, isLoading: isProfileLoading} = useProfile()
   const methods = useForm<CreateProfileForm>({defaultValues: {isEdit: true}})
   const router = useRouter()
   const [started, setStarted] = useState(false)
@@ -28,18 +32,29 @@ const Page = () => {
   const [formStates, setFormStates] = useState<ContactFormsCompletedType>()
 
   useEffect(() => {
-    if (isUserLoading) return
+    if (isUserLoading || isProfileLoading) return
     const loggedIn = !isUserLoading && !!user?.uid
     if (!loggedIn) router.push('/')
 
     const formCheck = async () => {
       const response = await formsCompletedHubspot(user?.email)
+      const localProgress = readLocalOnboardingProgress(user?.uid)
+      const profileCompleted = localProgress.profileCompleted || response?.profileCompleted || hasCompletedProfile(profile)
+      const needsAnalysisCompleted =
+        localProgress.needsAnalysisCompleted || response?.needsAnalysisCompleted || hasNeedsAnalysisData(profile)
+
       setFormStates(response)
+
+      if (profileCompleted && needsAnalysisCompleted) {
+        router.push('/')
+        return
+      }
+      if (profileCompleted) router.push('/profile/needs-analysis')
     }
     formCheck()
-  }, [isUserLoading, router, user?.uid, user?.email])
+  }, [isUserLoading, isProfileLoading, router, user?.uid, user?.email, profile])
 
-  if (isUserLoading) return
+  if (isUserLoading || isProfileLoading) return
 
   const stageStates = [!!formStates?.profileCompleted, !!formStates?.needsAnalysisCompleted, !!formStates?.knowYourCustomerCompleted]
 
@@ -56,7 +71,7 @@ const Page = () => {
       <StageStatus stage={1} stageStates={stageStates} />
       <FormProvider {...methods}>
         <form className="mb-32 mt-24 flex min-h-[70vh] items-center max-content-width xl:mb-32 xl:mt-48 xl:min-h-[60vh]">
-          <ProfileCreateSteps step={step} onNextStep={() => onStepChange(true)} formStates={formStates} />
+          <ProfileCreateSteps step={step} onNextStep={() => onStepChange(true)} />
         </form>
       </FormProvider>
       <Controls

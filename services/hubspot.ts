@@ -43,9 +43,9 @@ export const formsCompletedHubspot = async (email?: string | null) => {
 
   const result = {
     email: body.properties.email as string,
-    profileCompleted: body.properties.profile_completed === 'true',
-    needsAnalysisCompleted: body.properties.needs_analysis_completed === 'true',
-    knowYourCustomerCompleted: body.properties.know_your_customer_completed === 'true'
+    profileCompleted: hubspotBoolean(body.properties.profile_completed),
+    needsAnalysisCompleted: hubspotBoolean(body.properties.needs_analysis_completed),
+    knowYourCustomerCompleted: hubspotBoolean(body.properties.know_your_customer_completed)
   }
 
   return result
@@ -117,6 +117,7 @@ export const onboardingUpdateNeedsAnalysisHubspot = async (
       },
       body: JSON.stringify({
         properties: {
+          profile_completed: true,
           needs_analysis_completed: true,
           primary_investment_target: needsAnalysis.primaryInvestmentTarget,
           investor_type: needsAnalysis.investerType,
@@ -145,4 +146,5 @@ export const onboardingUpdateNeedsAnalysisHubspot = async (
   }
 }
 
+const hubspotBoolean = (value?: string | boolean) => value === true || value === 'true'
 const listToHubspotString = (list?: string[]) => list?.join(';') ?? ''
