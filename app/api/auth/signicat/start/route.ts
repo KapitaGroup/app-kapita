@@ -22,7 +22,9 @@ export async function GET(request: NextRequest) {
     const nonce = randomBase64Url()
     const codeVerifier = randomBase64Url(64)
     const redirectPath = request.nextUrl.searchParams.get('redirect') || '/'
-    const acrValues = process.env.SIGNICAT_ACR_VALUES
+    
+    // BankID authentication - use urn:signicat:oidc:method:sbid for Swedish BankID
+    const acrValues = process.env.SIGNICAT_ACR_VALUES || 'urn:signicat:oidc:method:sbid'
 
     const authorizeUrl = new URL(`${authority}/connect/authorize`)
     authorizeUrl.searchParams.set('client_id', clientId)
@@ -30,17 +32,25 @@ export async function GET(request: NextRequest) {
     authorizeUrl.searchParams.set('response_type', 'code')
     
     // Use environment variable or safe default (openid is always required)
-    const requestedScope = process.env.SIGNICAT_SCOPE || 'openid profile email'
+    // For BankID, we need openid profile to get user information
+    const requestedScope = process.env.SIGNICAT_SCOPE || 'openid profile'
     authorizeUrl.searchParams.set('scope', requestedScope)
     
-    console.log('Signicat OAuth scopes requested:', requestedScope)
+    console.log('Signicat BankID OAuth flow:', {
+      scopes: requestedScope,
+      acrValues,
+      redirectUri
+    })
     
     authorizeUrl.searchParams.set('code_challenge', sha256Base64Url(codeVerifier))
     authorizeUrl.searchParams.set('code_challenge_method', 'S256')
     authorizeUrl.searchParams.set('response_mode', 'query')
     authorizeUrl.searchParams.set('state', state)
     authorizeUrl.searchParams.set('nonce', nonce)
-    if (acrValues) authorizeUrl.searchParams.set('acr_values', acrValues)
+    authorizeUrl.searchParams.set('acr_values', acrValues)
+    
+    // Optional: Add UI locales for Swedish
+    authorizeUrl.searchParams.set('ui_locales', 'sv')
 
     const cookieOptions = {
       httpOnly: true,

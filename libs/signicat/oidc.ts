@@ -9,6 +9,10 @@ export type SignicatUserInfo = {
   given_name?: string
   family_name?: string
   phone_number?: string
+  // BankID specific fields
+  signicat_national_id?: string // Swedish personal number (personnummer)
+  birthdate?: string
+  locale?: string
 }
 
 export const getSignicatAuthority = () => {

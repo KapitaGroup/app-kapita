@@ -41,6 +41,13 @@ export async function GET(request: NextRequest) {
     })
     const userInfo = await getUserInfo(tokens.access_token)
 
+    console.log('BankID user info received:', {
+      sub: userInfo.sub,
+      hasEmail: !!userInfo.email,
+      hasName: !!userInfo.name,
+      hasPersonalNumber: !!userInfo.signicat_national_id
+    })
+
     if (!userInfo.sub) {
       loginUrl.searchParams.set('error', 'signicat-user')
       return NextResponse.redirect(loginUrl)
@@ -50,6 +57,7 @@ export async function GET(request: NextRequest) {
     const fallbackUid = signicatUidFor(issuer, userInfo.sub)
     let uid = fallbackUid
 
+    // Try to find existing user by email or personal number
     if (userInfo.email) {
       try {
         uid = (await auth.getUserByEmail(userInfo.email.toLowerCase())).uid
@@ -58,26 +66,38 @@ export async function GET(request: NextRequest) {
       }
     }
 
+    // Prepare user data for Firebase
+    const userData: any = {
+      displayName: userInfo.name || userInfo.given_name && userInfo.family_name ? `${userInfo.given_name} ${userInfo.family_name}` : undefined
+    }
+
+    if (userInfo.email) {
+      userData.email = userInfo.email.toLowerCase()
+      userData.emailVerified = userInfo.email_verified ?? true // BankID verified
+    }
+
+    // Store BankID personal number in custom claims
+    const customClaims: any = {
+      signicat: true,
+      signicatSub: userInfo.sub,
+      bankid: true
+    }
+
+    if (userInfo.signicat_national_id) {
+      customClaims.personalNumber = userInfo.signicat_national_id
+    }
+
     try {
       await auth.getUser(uid)
-      await auth.updateUser(uid, {
-        email: userInfo.email?.toLowerCase(),
-        emailVerified: userInfo.email_verified ?? !!userInfo.email,
-        displayName: userInfo.name
-      })
+      await auth.updateUser(uid, userData)
     } catch {
       await auth.createUser({
         uid,
-        email: userInfo.email?.toLowerCase(),
-        emailVerified: userInfo.email_verified ?? !!userInfo.email,
-        displayName: userInfo.name
+        ...userData
       })
     }
 
-    const customToken = await auth.createCustomToken(uid, {
-      signicat: true,
-      signicatSub: userInfo.sub
-    })
+    const customToken = await auth.createCustomToken(uid, customClaims)
 
     clearSignicatFlowCookies()
     cookies().set('signicat_firebase_token', customToken, {
