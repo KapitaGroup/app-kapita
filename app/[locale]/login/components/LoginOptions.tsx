@@ -10,6 +10,9 @@ import {useRouter} from '@/i18n/routing'
 import {type LoginForm} from './Section'
 import type {GoogleAuthCodesType} from '@/utils/types'
 
+// Version timestamp to bust cache
+const APP_VERSION = '20260504-001'
+
 const LoginOptions = () => {
   const [isLoginLoading, setIsLoginLoading] = useState(false)
   const searchParams = useSearchParams()
