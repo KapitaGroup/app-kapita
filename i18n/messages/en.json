@@ -343,6 +343,8 @@
       "verify-account": "Verify your account",
       "password-reset": "Reset password"
     },
+    "sign-in-to-account": "Sign in to your account",
+    "choose-sign-in-method": "Choose how you want to sign in to your account.",
     "info": {
       "description": "Kapita strives to be the leading partner for entrepreneurs and companies that want to create long-term value.",
       "benefits": {

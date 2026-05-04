@@ -343,6 +343,8 @@
       "verify-account": "Verifiera ditt konto",
       "password-reset": "Återställ lösenord"
     },
+    "sign-in-to-account": "Logga in på ditt konto",
+    "choose-sign-in-method": "Välj hur du vill logga in på ditt konto.",
     "info": {
       "description": "Kapita strävar efter att vara den ledande partnern för entreprenörer och företag som vill skapa långsiktigt värde.",
       "benefits": {

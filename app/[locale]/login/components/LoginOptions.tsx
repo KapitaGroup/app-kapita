@@ -3,10 +3,8 @@ import {useEffect, useState} from 'react'
 import {useSearchParams} from 'next/navigation'
 import {useTranslations} from 'next-intl'
 import {useFormContext} from 'react-hook-form'
-import Button from '@/components/Button'
+import Image from 'next/image'
 import Error from '@/components/form/Error'
-import SectionContainer from './SectionContainer'
-import Title from './Title'
 import {signInWithSignicatToken} from '@/libs/firebase/auth'
 import {useRouter} from '@/i18n/routing'
 import {type LoginForm} from './Section'
@@ -56,18 +54,38 @@ const LoginOptions = () => {
   }
 
   return (
-    <>
-      <Title title="log-in-create-account" />
-      <SectionContainer>
-        <Button
-          text={t('LoginPage.login-with-bankid')}
-          variant="base"
+    <div className="flex flex-col gap-8">
+      <h1 className="text-h3 font-semibold text-neutral-900">{t('LoginPage.sign-in-to-account')}</h1>
+      <p className="text-body text-neutral-600">{t('LoginPage.choose-sign-in-method')}</p>
+      
+      <div className="flex flex-col gap-4">
+        {/* BankID Button */}
+        <button
           onClick={onLoginClick}
-          loading={isLoginLoading}
-        />
+          disabled={isLoginLoading}
+          className="flex w-full items-center justify-center gap-3 rounded-lg bg-[#1E3A5F] px-6 py-4 text-white transition-all hover:bg-[#2A4A75] active:bg-[#152A45] disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {isLoginLoading ? (
+            <div className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent" />
+          ) : (
+            <>
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M11.5 7C11.5 7 8.5 7 8.5 10V22C8.5 25 11.5 25 11.5 25H20.5C20.5 25 23.5 25 23.5 22V10C23.5 7 20.5 7 20.5 7H11.5Z"
+                  fill="white"
+                />
+                <path d="M13 11H19" stroke="#1E3A5F" strokeWidth="2" strokeLinecap="round" />
+                <path d="M13 16H19" stroke="#1E3A5F" strokeWidth="2" strokeLinecap="round" />
+                <path d="M13 21H19" stroke="#1E3A5F" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+              <span className="text-lg font-semibold">{t('LoginPage.login-with-bankid')}</span>
+            </>
+          )}
+        </button>
+        
         <Error error={watch('errors')?.global} />
-      </SectionContainer>
-    </>
+      </div>
+    </div>
   )
 }
 
