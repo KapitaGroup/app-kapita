@@ -1,97 +1,73 @@
 'use client'
-import {useTranslations} from 'next-intl'
-import Button from '@/components/Button'
-import Input from '@/components/form/Input'
-import {useSearchParams} from 'next/navigation'
 import {useEffect, useState} from 'react'
-import {useFormContext, useWatch} from 'react-hook-form'
-import {type LoginForm} from './Section'
-import Title from './Title'
+import {useSearchParams} from 'next/navigation'
+import {useTranslations} from 'next-intl'
+import {useFormContext} from 'react-hook-form'
+import Button from '@/components/Button'
+import Error from '@/components/form/Error'
 import SectionContainer from './SectionContainer'
-import {isEmailValid} from '@/utils/stringValidations'
+import Title from './Title'
+import {signInWithSignicatToken} from '@/libs/firebase/auth'
+import {type LoginForm} from './Section'
+import type {GoogleAuthCodesType} from '@/utils/types'
 
 const LoginOptions = () => {
   const [isLoginLoading, setIsLoginLoading] = useState(false)
-  const [isCreateLoading, setIsCreateLoading] = useState(false)
   const searchParams = useSearchParams()
   const t = useTranslations()
-  const {control, setFocus, setValue, getValues} = useFormContext<LoginForm>()
-
-  // Auto-clear validation errors as soon as the user starts typing
-  const watchedEmail = useWatch({control, name: 'email'})
-  useEffect(() => {
-    if (!!watchedEmail) setValue('errors', {})
-  }, [watchedEmail, setValue])
+  const {setValue, watch} = useFormContext<LoginForm>()
 
   useEffect(() => {
-    setFocus('email')
-  }, [setFocus])
+    const completeSignicatLogin = async () => {
+      if (searchParams.get('signicat') !== 'complete') return
 
-  useEffect(() => {
-    const emailParam = searchParams.get('email')
-    if (!!emailParam) setValue('email', emailParam)
+      setIsLoginLoading(true)
+      const tokenResponse = await fetch('/api/auth/signicat/firebase-token')
+      const tokenPayload = (await tokenResponse.json()) as {success: boolean; customToken?: string; redirect?: string; error?: string}
+
+      if (!tokenPayload.success || !tokenPayload.customToken) {
+        setValue('errors', {global: 'auth/signicat-login-failed'})
+        setIsLoginLoading(false)
+        return
+      }
+
+      const response = await signInWithSignicatToken(tokenPayload.customToken)
+
+      if (response.error || !response.user) {
+        setValue('errors', {global: (response.error?.code ?? 'auth/signicat-login-failed') as GoogleAuthCodesType})
+        setIsLoginLoading(false)
+        return
+      }
+
+      setValue('email', response.user.email ?? '')
+      setValue('phone', response.user.phoneNumber ?? '')
+      setValue('emailVerified', response.user.emailVerified)
+      setValue('redirect', tokenPayload.redirect ?? '/')
+      setValue('isCreatingAccount', false)
+      setValue('isPhoneVerification', true)
+      setIsLoginLoading(false)
+    }
+
+    completeSignicatLogin()
   }, [searchParams, setValue])
 
-  const validateEmail = () => {
-    const email = getValues('email')?.trim()
-    if (!email) {
-      setValue('errors', {email: 'required'})
-      setFocus('email')
-      return null
-    }
-    if (!isEmailValid(email)) {
-      setValue('errors', {email: 'incorrect-email-format'})
-      setFocus('email')
-      return null
-    }
-    setValue('errors', {})
-    return email
-  }
-
-  // Existing users → straight to password screen
   const onLoginClick = () => {
-    const email = validateEmail()
-    if (!email) return
-
     setIsLoginLoading(true)
-    setValue('isCreatingAccount', false)
-    setValue('isEmailSet', true)
-  }
-
-  // New users → create-account flow (Firebase rejects duplicate emails)
-  const onCreateClick = () => {
-    const email = validateEmail()
-    if (!email) return
-
-    setIsCreateLoading(true)
-    setValue('isCreatingAccount', true)
-    setValue('isEmailSet', true)
+    const redirect = searchParams.get('redirect') || '/'
+    window.location.href = `/api/auth/signicat/start?redirect=${encodeURIComponent(redirect)}`
   }
 
   return (
     <>
       <Title title="log-in-create-account" />
       <SectionContainer>
-        <div>
-          <Input name="email" label={t('email')} type="email" autoComplete="email" onEnter={onLoginClick} />
-        </div>
         <Button
-          text={t('login')}
+          text={t('LoginPage.continue-with-signicat')}
           variant="outlined"
           onClick={onLoginClick}
           loading={isLoginLoading}
         />
-        <div className="flex items-center gap-x-2 py-1">
-          <span className="w-full border-t-[1px] border-neutral-300" />
-          <span className="text-sm text-neutral-500">{t('or')}</span>
-          <span className="w-full border-t-[1px] border-neutral-300" />
-        </div>
-        <Button
-          text={t('LoginPage.create-new-account')}
-          variant="outlined"
-          onClick={onCreateClick}
-          loading={isCreateLoading}
-        />
+        <Error error={watch('errors')?.global} />
       </SectionContainer>
     </>
   )

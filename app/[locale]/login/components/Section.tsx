@@ -2,8 +2,6 @@
 import Logo from '@/components/Logo'
 import {FormProvider, useForm} from 'react-hook-form'
 import LoginOptions from './LoginOptions'
-import LoginEmail from './LoginEmail'
-import CreateAccount from './CreateAccount'
 import PhoneVerify from './PhoneVerify'
 import type {GoogleAuthCodesType, ProfileType} from '@/utils/types'
 
@@ -14,6 +12,7 @@ export type LoginForm = {
   emailVerificationCode: string
   password: string | null
   newPassword: string | null
+  redirect?: string
   errors: {[key: string]: string}
   error?: 'required' | 'incorrect-email-format' | 'incorrect-phone-format' | 'wrong-code' | GoogleAuthCodesType
 } & Pick<ProfileType, 'email' | 'emailVerified' | 'phone'>
@@ -48,8 +47,7 @@ const Section = () => {
       <form className="flex flex-col gap-8" onSubmit={e => e.preventDefault()}>
         <Logo size="md" url="https://www.kapita.com/" />
         {showStepIndicator && <StepIndicator step={currentStep} />}
-        {!watches.isEmailSet && !watches.isPhoneVerification && <LoginOptions />}
-        {watches.isEmailSet && !watches.isPhoneVerification && (watches.isCreatingAccount ? <CreateAccount /> : <LoginEmail />)}
+        {!watches.isPhoneVerification && <LoginOptions />}
         {watches.isPhoneVerification && <PhoneVerify />}
       </form>
     </FormProvider>

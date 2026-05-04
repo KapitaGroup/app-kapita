@@ -33,6 +33,11 @@ const PhoneVerify = () => {
 
   const fullPhone = `${dial}${number.replace(/[\s-]/g, '')}`
 
+  const continueAfterPhoneVerification = () => {
+    const isNewUser = watch('isCreatingAccount')
+    push(isNewUser ? '/profile/create' : (watch('redirect') || searchParams.get('redirect') || '/'))
+  }
+
   const onSendCode = async () => {
     setPhoneError('')
     setGlobalError('')
@@ -49,18 +54,12 @@ const PhoneVerify = () => {
     const {confirmationResult, error} = await sendPhoneLink(fullPhone)
 
     if (error) {
-      // If phone is already linked, show message but allow user to proceed
       if (error.code === 'auth/provider-already-linked') {
-        setGlobalError('auth/provider-already-linked')
         setIsSending(false)
-        // Redirect after showing the message
-        setTimeout(() => {
-          const isNewUser = watch('isCreatingAccount')
-          push(isNewUser ? '/profile/create' : (searchParams.get('redirect') || '/'))
-        }, 2000)
+        continueAfterPhoneVerification()
         return
       }
-      
+
       const code = (error?.code ?? 'auth/unknown') as GoogleAuthCodesType
       setGlobalError(code)
       setIsSending(false)
@@ -94,8 +93,7 @@ const PhoneVerify = () => {
       return
     }
 
-    const isNewUser = watch('isCreatingAccount')
-    push(isNewUser ? '/profile/create' : (searchParams.get('redirect') || '/'))
+    continueAfterPhoneVerification()
   }
 
   return (

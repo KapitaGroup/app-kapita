@@ -4,6 +4,7 @@ import {
   FacebookAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword,
+  signInWithCustomToken,
   createUserWithEmailAndPassword,
   signInWithPhoneNumber,
   linkWithPhoneNumber,
@@ -167,6 +168,27 @@ export const createAccountWithEmail = async (email: string, password: string) =>
     return {user: userCredentials.user}
   } catch (error) {
     console.error('Error creating account with Email on Google', error)
+    return {error: error as FirebaseError}
+  }
+}
+
+export const signInWithSignicatToken = async (customToken: string) => {
+  try {
+    const userCredentials = await signInWithCustomToken(auth, customToken)
+
+    const idToken = await userCredentials.user.getIdToken()
+
+    await fetch('/api/auth/sign-in', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({idToken})
+    })
+
+    return {user: userCredentials.user}
+  } catch (error) {
+    console.error('Error signing in with Signicat', error)
     return {error: error as FirebaseError}
   }
 }
