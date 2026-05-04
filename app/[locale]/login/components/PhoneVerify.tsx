@@ -13,6 +13,7 @@ import Error from '@/components/form/Error'
 import PhoneInput from '@/components/form/PhoneInput'
 import type {LoginForm} from './Section'
 import type {GoogleAuthCodesType} from '@/utils/types'
+import type {ConfirmationResult} from 'firebase/auth'
 
 const PhoneVerify = () => {
   const {push} = useRouter()
@@ -28,7 +29,7 @@ const PhoneVerify = () => {
   const [number, setNumber] = useState('')
   const [phoneError, setPhoneError] = useState('')
   const [globalError, setGlobalError] = useState('')
-  const verificationIdRef = useRef<string | null>(null)
+  const confirmationResultRef = useRef<ConfirmationResult | null>(null)
 
   const fullPhone = `${dial}${number.replace(/[\s-]/g, '')}`
 
@@ -45,29 +46,29 @@ const PhoneVerify = () => {
     setIsSending(true)
     setValue('phone', fullPhone)
 
-    const {verificationId, error} = await sendPhoneLink(fullPhone)
+    const {confirmationResult, error} = await sendPhoneLink(fullPhone)
 
-    if (error || !verificationId) {
+    if (error || !confirmationResult) {
       const code = (error?.code ?? 'auth/unknown') as GoogleAuthCodesType
       setGlobalError(code)
       setIsSending(false)
       return
     }
 
-    verificationIdRef.current = verificationId
+    confirmationResultRef.current = confirmationResult
     setStep('otp')
     setIsSending(false)
   }
 
   const onVerifyOtp = async () => {
     setGlobalError('')
-    if (!otp || otp.length < 4 || !verificationIdRef.current) {
+    if (!otp || otp.length < 4 || !confirmationResultRef.current) {
       setGlobalError('wrong-code')
       return
     }
     setIsVerifying(true)
 
-    const {success, error} = await verifyAndLinkPhone(verificationIdRef.current, otp)
+    const {success, error} = await verifyAndLinkPhone(confirmationResultRef.current, otp)
 
     if (!success || error) {
       setGlobalError((error?.code ?? 'auth/invalid-verification-code') as string)
@@ -128,7 +129,7 @@ const PhoneVerify = () => {
               text={t('LoginPage.resend-code')}
               variant="link"
               onClick={() => {
-                verificationIdRef.current = null
+                confirmationResultRef.current = null
                 setOtp('')
                 setGlobalError('')
                 setStep('phone')

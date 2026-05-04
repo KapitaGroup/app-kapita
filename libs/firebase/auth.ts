@@ -6,8 +6,7 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signInWithPhoneNumber,
-  PhoneAuthProvider,
-  linkWithCredential,
+  linkWithPhoneNumber,
   RecaptchaVerifier,
   type ConfirmationResult
 } from 'firebase/auth'
@@ -16,16 +15,27 @@ import {FirebaseError} from '@firebase/util'
 
 const getPhoneAuthErrorCode = (error: unknown) => {
   const firebaseError = error as FirebaseError
-  const message = firebaseError?.message?.toLowerCase() ?? ''
+  const rawMessage = firebaseError?.message ?? (typeof error === 'string' ? error : '')
+  const message = rawMessage.toLowerCase()
+  const codeFromMessage = rawMessage.match(/auth\/[a-z0-9-]+/)?.[0]
+  const code = firebaseError?.code ?? codeFromMessage
 
   if (
-    firebaseError?.code === 'auth/operation-not-allowed' &&
+    code === 'auth/operation-not-allowed' &&
     (message.includes('sms') || message.includes('region'))
   ) {
     return 'auth/sms-region-not-allowed'
   }
 
-  return firebaseError?.code ?? 'auth/unknown'
+  if (message.includes('authorized domain') || message.includes('unauthorized domain')) {
+    return 'auth/unauthorized-domain'
+  }
+
+  if (message.includes('app verification') || message.includes('app credential')) {
+    return 'auth/app-verification-failed'
+  }
+
+  return code ?? 'auth/unknown'
 }
 
 export const signInWithApple = async () => {
@@ -192,17 +202,22 @@ export const verifyPhoneOtp = async (confirmationResult: ConfirmationResult, otp
  * Step-2 phone verification: sends OTP linked to the currently signed-in user
  * (does NOT create a new Firebase user / change the session cookie).
  */
-export const sendPhoneLink = async (phoneNumber: string): Promise<{verificationId?: string; error?: FirebaseError}> => {
+export const sendPhoneLink = async (phoneNumber: string): Promise<{confirmationResult?: ConfirmationResult; error?: FirebaseError}> => {
   let recaptchaVerifier: RecaptchaVerifier | null = null
   try {
+    if (!auth.currentUser) {
+      return {error: {code: 'auth/no-current-user'} as FirebaseError}
+    }
+
+    await auth.currentUser.reload()
+
     // Clear any existing reCAPTCHA widget container content (from previous attempts)
     const container = document.getElementById('recaptcha-container')
     if (container) container.innerHTML = ''
 
     recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {size: 'invisible'})
-    const phoneProvider = new PhoneAuthProvider(auth)
-    const verificationId = await phoneProvider.verifyPhoneNumber(phoneNumber, recaptchaVerifier)
-    return {verificationId}
+    const confirmationResult = await linkWithPhoneNumber(auth.currentUser, phoneNumber, recaptchaVerifier)
+    return {confirmationResult}
   } catch (error) {
     console.error('Error sending phone verification', error)
     // Clean up the reCAPTCHA on error so the next attempt works
@@ -214,11 +229,9 @@ export const sendPhoneLink = async (phoneNumber: string): Promise<{verificationI
   }
 }
 
-export const verifyAndLinkPhone = async (verificationId: string, otp: string): Promise<{success: boolean; error?: FirebaseError}> => {
+export const verifyAndLinkPhone = async (confirmationResult: ConfirmationResult, otp: string): Promise<{success: boolean; error?: FirebaseError}> => {
   try {
-    const credential = PhoneAuthProvider.credential(verificationId, otp)
-    if (!auth.currentUser) throw new Error('No authenticated user')
-    await linkWithCredential(auth.currentUser, credential)
+    await confirmationResult.confirm(otp)
     return {success: true}
   } catch (error: any) {
     // Already linked is fine — still counts as verified
