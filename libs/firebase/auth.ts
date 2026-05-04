@@ -14,6 +14,20 @@ import {
 import {auth} from './config-client'
 import {FirebaseError} from '@firebase/util'
 
+const getPhoneAuthErrorCode = (error: unknown) => {
+  const firebaseError = error as FirebaseError
+  const message = firebaseError?.message?.toLowerCase() ?? ''
+
+  if (
+    firebaseError?.code === 'auth/operation-not-allowed' &&
+    (message.includes('sms') || message.includes('region'))
+  ) {
+    return 'auth/sms-region-not-allowed'
+  }
+
+  return firebaseError?.code ?? 'auth/unknown'
+}
+
 export const signInWithApple = async () => {
   try {
     const userCredentials = await signInWithPopup(auth, new OAuthProvider('apple.com'))
@@ -195,7 +209,8 @@ export const sendPhoneLink = async (phoneNumber: string): Promise<{verificationI
     try {
       recaptchaVerifier?.clear()
     } catch {}
-    return {error: error as FirebaseError}
+    const firebaseError = error as FirebaseError
+    return {error: {...firebaseError, code: getPhoneAuthErrorCode(error)} as FirebaseError}
   }
 }
 
