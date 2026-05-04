@@ -218,8 +218,14 @@ export const sendPhoneLink = async (phoneNumber: string): Promise<{confirmationR
     recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {size: 'invisible'})
     const confirmationResult = await linkWithPhoneNumber(auth.currentUser, phoneNumber, recaptchaVerifier)
     return {confirmationResult}
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error sending phone verification', error)
+    
+    // If phone is already linked, treat as success (user can skip verification)
+    if (error.code === 'auth/provider-already-linked') {
+      return {error: {code: 'auth/provider-already-linked'} as FirebaseError}
+    }
+    
     // Clean up the reCAPTCHA on error so the next attempt works
     try {
       recaptchaVerifier?.clear()

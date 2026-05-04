@@ -443,6 +443,7 @@
     "auth/unauthorized-domain": "Den här domänen är inte auktoriserad för Firebase-telefonverifiering. Lägg till app.kapita.com i Firebase Authentication → Settings → Authorized domains.",
     "auth/no-current-user": "Logga in med din e-post igen innan du verifierar telefonen.",
     "auth/network-request-failed": "Nätverksfel när SMS skulle skickas. Kontrollera anslutningen och försök igen.",
+    "auth/provider-already-linked": "Detta telefonnummer är redan verifierat för ditt konto.",
     "auth/credential-already-in-use": "Detta telefonnummer är redan kopplat till ett annat konto.",
     "auth/too-many-requests": "För många försök. Försök igen senare.",
     "auth/billing-not-enabled": "SMS-verifiering kräver att Firebase-fakturering är aktiverad. Vänligen kontakta support.",
