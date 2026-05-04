@@ -14,9 +14,47 @@ SIGNICAT_AUTHORITY=https://preprod.signicat.com/oidc
 SIGNICAT_CLIENT_ID=your_client_id_here
 SIGNICAT_CLIENT_SECRET=your_client_secret_here
 
-# Optional
-SIGNICAT_SCOPE=openid profile email phone
+# Optional - Customize the scopes (default: "openid profile email")
+# Only include scopes that are enabled in your Signicat client configuration
+SIGNICAT_SCOPE=openid profile email
+
+# Optional - Specify authentication method
 SIGNICAT_ACR_VALUES=urn:signicat:oidc:method:sbid-oidc
+```
+
+## Important: Scope Configuration
+
+The application requests these scopes by default:
+- `openid` (required - always needed)
+- `profile` (optional - for name, given_name, family_name)
+- `email` (optional - for email address)
+
+**You MUST enable these scopes in your Signicat client configuration**, or you'll get an "Invalid scope" error.
+
+### How to Enable Scopes in Signicat:
+
+1. Log in to your Signicat dashboard
+2. Go to your client/application settings
+3. Find the "Allowed Scopes" or "Scopes" section
+4. Enable at minimum:
+   - ✅ `openid`
+   - ✅ `profile`
+   - ✅ `email`
+5. Optionally enable:
+   - `phone` (if you need phone numbers)
+   - `address` (if you need address information)
+6. Save the configuration
+
+### Custom Scopes
+
+If you need different scopes, set the `SIGNICAT_SCOPE` environment variable:
+
+```bash
+# Example: Only request openid and email
+SIGNICAT_SCOPE=openid email
+
+# Example: Request all available scopes
+SIGNICAT_SCOPE=openid profile email phone address
 ```
 
 ## Redirect URI Configuration
@@ -68,6 +106,14 @@ https://*.vercel.app/api/auth/signicat/callback
 - **Cause**: The redirect URI in your app doesn't match what's configured in Signicat
 - **Solution**: Ensure `https://app.kapita.com/api/auth/signicat/callback` is added to allowed redirect URIs
 - **Check**: The URL must be exact (no trailing slash, correct protocol, correct domain)
+
+### "Invalid scope"
+- **Cause**: The scopes your app is requesting aren't enabled in your Signicat client configuration
+- **Solution**: 
+  1. Go to Signicat dashboard → Your client settings → Allowed Scopes
+  2. Enable these scopes: `openid`, `profile`, `email`
+  3. Save the configuration
+- **Alternative**: Set `SIGNICAT_SCOPE` environment variable to only request scopes that are enabled (e.g., `openid email`)
 
 ### "Invalid client"
 - **Cause**: Wrong `SIGNICAT_CLIENT_ID` or `SIGNICAT_CLIENT_SECRET`

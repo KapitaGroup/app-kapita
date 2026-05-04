@@ -8,6 +8,7 @@ import Error from '@/components/form/Error'
 import SectionContainer from './SectionContainer'
 import Title from './Title'
 import {signInWithSignicatToken} from '@/libs/firebase/auth'
+import {useRouter} from '@/i18n/routing'
 import {type LoginForm} from './Section'
 import type {GoogleAuthCodesType} from '@/utils/types'
 
@@ -16,6 +17,7 @@ const LoginOptions = () => {
   const searchParams = useSearchParams()
   const t = useTranslations()
   const {setValue, watch} = useFormContext<LoginForm>()
+  const {push} = useRouter()
 
   useEffect(() => {
     const completeSignicatLogin = async () => {
@@ -39,21 +41,17 @@ const LoginOptions = () => {
         return
       }
 
-      setValue('email', response.user.email ?? '')
-      setValue('phone', response.user.phoneNumber ?? '')
-      setValue('emailVerified', response.user.emailVerified)
-      setValue('redirect', tokenPayload.redirect ?? '/')
-      setValue('isCreatingAccount', false)
-      setValue('isPhoneVerification', true)
-      setIsLoginLoading(false)
+      // Redirect directly to profile creation or the intended destination
+      const redirectPath = tokenPayload.redirect || '/profile/create'
+      push(redirectPath)
     }
 
     completeSignicatLogin()
-  }, [searchParams, setValue])
+  }, [searchParams, setValue, push])
 
   const onLoginClick = () => {
     setIsLoginLoading(true)
-    const redirect = searchParams.get('redirect') || '/'
+    const redirect = searchParams.get('redirect') || '/profile/create'
     window.location.href = `/api/auth/signicat/start?redirect=${encodeURIComponent(redirect)}`
   }
 
@@ -62,8 +60,8 @@ const LoginOptions = () => {
       <Title title="log-in-create-account" />
       <SectionContainer>
         <Button
-          text={t('LoginPage.continue-with-signicat')}
-          variant="outlined"
+          text={t('LoginPage.login-with-bankid')}
+          variant="base"
           onClick={onLoginClick}
           loading={isLoginLoading}
         />

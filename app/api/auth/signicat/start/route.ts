@@ -28,7 +28,13 @@ export async function GET(request: NextRequest) {
     authorizeUrl.searchParams.set('client_id', clientId)
     authorizeUrl.searchParams.set('redirect_uri', redirectUri)
     authorizeUrl.searchParams.set('response_type', 'code')
-    authorizeUrl.searchParams.set('scope', process.env.SIGNICAT_SCOPE || 'openid profile email phone')
+    
+    // Use environment variable or safe default (openid is always required)
+    const requestedScope = process.env.SIGNICAT_SCOPE || 'openid profile email'
+    authorizeUrl.searchParams.set('scope', requestedScope)
+    
+    console.log('Signicat OAuth scopes requested:', requestedScope)
+    
     authorizeUrl.searchParams.set('code_challenge', sha256Base64Url(codeVerifier))
     authorizeUrl.searchParams.set('code_challenge_method', 'S256')
     authorizeUrl.searchParams.set('response_mode', 'query')
