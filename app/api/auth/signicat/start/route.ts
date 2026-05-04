@@ -11,6 +11,13 @@ export async function GET(request: NextRequest) {
     const origin = request.nextUrl.origin
     const secure = request.nextUrl.protocol === 'https:'
     const redirectUri = getRedirectUri(origin)
+    
+    console.log('Signicat OAuth flow starting:', {
+      origin,
+      redirectUri,
+      authority,
+      clientId: clientId.substring(0, 8) + '...'
+    })
     const state = randomBase64Url()
     const nonce = randomBase64Url()
     const codeVerifier = randomBase64Url(64)

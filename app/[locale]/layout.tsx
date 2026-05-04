@@ -6,10 +6,17 @@ import {getTranslations} from 'next-intl/server'
 import localFont from 'next/font/local'
 import ReactQueryProvider from '@/providers/ReactQueryProvider'
 
-const lexendDecaFont = localFont({
-  src: '../../fonts/LexendDeca-VariableFont_wght.ttf',
+const saansFont = localFont({
+  src: [
+    {path: '../../fonts/Saans-Regular.woff2', weight: '400', style: 'normal'},
+    {path: '../../fonts/Saans-RegularItalic.woff2', weight: '400', style: 'italic'},
+    {path: '../../fonts/Saans-Medium.woff2', weight: '500', style: 'normal'},
+    {path: '../../fonts/Saans-Bold.woff2', weight: '700', style: 'normal'},
+    {path: '../../fonts/Saans-BoldItalic.woff2', weight: '700', style: 'italic'}
+  ],
   preload: true,
-  variable: '--font-lexend-deca'
+  display: 'swap',
+  variable: '--font-saans'
 })
 
 export const generateMetadata = async ({params: {locale}}: {params: {locale: string}}): Promise<Metadata> => {
@@ -36,7 +43,7 @@ const RootLayout = async ({
   unstable_setRequestLocale(locale)
 
   return (
-    <html lang={locale} className={`${lexendDecaFont.variable}`}>
+    <html lang={locale} className={`${saansFont.variable}`}>
       <body>
         <NextIntlClientProvider messages={messages}>
           <ReactQueryProvider>{children}</ReactQueryProvider>

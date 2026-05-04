@@ -70,7 +70,7 @@ const config: Config = {
     },
     extend: {
       fontFamily: {
-        lexendDeca: ['var(--font-lexend-deca)', 'roboto']
+        lexendDeca: ['var(--font-saans)', 'Inter', 'Arial', 'sans-serif']
       },
       boxShadow: {
         default: '1px 2px 4px 0px rgba(0, 0, 0, 0.12)',
@@ -82,21 +82,21 @@ const config: Config = {
   plugins: [
     plugin(({addUtilities, addVariant}) => {
       addUtilities({
-        '.text-h1': {'@apply text-[32px] leading-[43.3px] font-lexendDeca font-extralight': {}},
+        '.text-h1': {'@apply text-[32px] leading-[43.3px] font-lexendDeca': {}},
         '.text-h2': {'@apply text-[32px] leading-[43.62px] font-lexendDeca font-semibold': {}},
-        '.text-h3': {'@apply text-[24px] leading-[32.54px] font-lexendDeca': {}},
+        '.text-h3': {'@apply text-[24px] leading-[32.54px] font-lexendDeca font-medium': {}},
         '.text-h4': {'@apply text-[20px] leading-[27.2px] font-lexendDeca font-semibold': {}},
-        '.text-h5': {'@apply text-[18px] leading-[24.35px] font-lexendDeca font-light': {}},
+        '.text-h5': {'@apply text-[18px] leading-[24.35px] font-lexendDeca font-medium': {}},
         '.text-h6': {'@apply text-[16px] leading-[21.76px] font-lexendDeca font-medium': {}},
-        '.text-button': {'@apply text-[16px] leading-[21.7px] font-lexendDeca': {}},
+        '.text-button': {'@apply text-[16px] leading-[21.7px] font-lexendDeca font-medium': {}},
         '.text-button-link': {
-          '@apply text-[16px] leading-[21.7px] underline font-lexendDeca': {}
+          '@apply text-[16px] leading-[21.7px] underline font-lexendDeca font-medium': {}
         },
         '.text-body': {'@apply text-[16px] leading-[21.7px] font-lexendDeca': {}},
         '.text-description-unread': {
           '@apply text-[14px] leading-[19.04px] font-lexendDeca font-medium': {}
         },
-        '.text-description': {'@apply text-[14px] leading-[18.94px] font-lexendDeca font-light': {}},
+        '.text-description': {'@apply text-[14px] leading-[18.94px] font-lexendDeca': {}},
         '.text-disclaimer': {'@apply text-[12px] leading-[16.27px] font-lexendDeca': {}},
         '.text-disclaimer-link': {'@apply text-[12px] leading-[16.27px] underline font-lexendDeca': {}},
         '.grid-layout': {'@apply grid grid-cols-4 xl:grid-cols-12 gap-x-4 xl:gap-x-6': {}},

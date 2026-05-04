@@ -449,7 +449,12 @@
     "auth/credential-already-in-use": "Detta telefonnummer är redan kopplat till ett annat konto.",
     "auth/too-many-requests": "För många försök. Försök igen senare.",
     "auth/billing-not-enabled": "SMS-verifiering kräver att Firebase-fakturering är aktiverad. Vänligen kontakta support.",
-    "auth/unknown": "Något gick fel. Försök igen."
+    "auth/unknown": "Något gick fel. Försök igen.",
+    "auth/signicat-login-failed": "Inloggning med Signicat misslyckades. Försök igen.",
+    "auth/signicat-config": "Signicat-konfigurationsfel. Vänligen kontakta support.",
+    "auth/signicat-state": "Ogiltigt inloggningstillstånd. Försök igen.",
+    "auth/signicat-user": "Kunde inte hämta användarinformation. Försök igen.",
+    "auth/signicat-callback": "Inloggning misslyckades. Försök igen."
   },
   "Messages": {
     "contacting": "Skickar förfrågan",
