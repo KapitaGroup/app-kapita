@@ -66,18 +66,16 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Prepare user data for Firebase
-    const userData: any = {
+    const userData: {displayName?: string; email?: string; emailVerified?: boolean} = {
       displayName: userInfo.name || userInfo.given_name && userInfo.family_name ? `${userInfo.given_name} ${userInfo.family_name}` : undefined
     }
 
     if (userInfo.email) {
       userData.email = userInfo.email.toLowerCase()
-      userData.emailVerified = userInfo.email_verified ?? true // BankID verified
+      userData.emailVerified = userInfo.email_verified ?? true
     }
 
-    // Store BankID personal number in custom claims
-    const customClaims: any = {
+    const customClaims: {signicat: boolean; signicatSub: string; bankid: boolean; personalNumber?: string} = {
       signicat: true,
       signicatSub: userInfo.sub,
       bankid: true
