@@ -25,6 +25,7 @@
     "react-firebase-hooks": "^5.1.1",
     "react-hook-form": "^7.53.0",
     "react-hot-toast": "^2.4.1",
+    "react-qr-code": "^2.0.15",
     "react-query": "^3.39.3",
     "resend": "^4.0.1-alpha.0",
     "sharp": "^0.33.5"
