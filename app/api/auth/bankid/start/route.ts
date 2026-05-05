@@ -39,7 +39,8 @@ export async function POST(request: NextRequest) {
       autoStartToken: session.idpData?.autoStartToken
     })
   } catch (error) {
-    console.error('BankID session start failed', error)
-    return NextResponse.json({success: false, error: 'bankid-start-failed'}, {status: 500})
+    const detail = error instanceof Error ? error.message : String(error)
+    console.error('BankID session start failed', detail)
+    return NextResponse.json({success: false, error: 'bankid-start-failed', detail}, {status: 500})
   }
 }
