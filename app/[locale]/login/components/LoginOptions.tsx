@@ -3,18 +3,36 @@ import {useEffect, useState} from 'react'
 import {useSearchParams} from 'next/navigation'
 import {useTranslations} from 'next-intl'
 import {useFormContext} from 'react-hook-form'
-import Image from 'next/image'
 import Error from '@/components/form/Error'
 import {signInWithSignicatToken} from '@/libs/firebase/auth'
 import {useRouter} from '@/i18n/routing'
 import {type LoginForm} from './Section'
 import type {GoogleAuthCodesType} from '@/utils/types'
 
-// Version timestamp to bust cache
-const APP_VERSION = '20260504-001'
+type Method = 'sbid' | 'freja-eid'
+
+const FrejaIcon = () => (
+  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#1B1A66] text-[10px] font-bold tracking-tight text-white">
+    FREJA
+  </div>
+)
+
+const BankIDIcon = () => (
+  <div className="flex h-10 w-10 shrink-0 items-center justify-center">
+    <svg viewBox="0 0 40 40" width="40" height="40" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+      <rect x="2" y="6" width="36" height="28" rx="4" fill="#235971" />
+      <text x="20" y="22" textAnchor="middle" fontFamily="Helvetica, Arial, sans-serif" fontWeight="700" fontSize="9" fill="#fff" letterSpacing="0.5">
+        Bank
+      </text>
+      <text x="20" y="31" textAnchor="middle" fontFamily="Helvetica, Arial, sans-serif" fontWeight="700" fontStyle="italic" fontSize="9" fill="#fff">
+        ID
+      </text>
+    </svg>
+  </div>
+)
 
 const LoginOptions = () => {
-  const [isLoginLoading, setIsLoginLoading] = useState(false)
+  const [loadingMethod, setLoadingMethod] = useState<Method | null>(null)
   const searchParams = useSearchParams()
   const t = useTranslations()
   const {setValue, watch} = useFormContext<LoginForm>()
@@ -24,13 +42,13 @@ const LoginOptions = () => {
     const completeSignicatLogin = async () => {
       if (searchParams.get('signicat') !== 'complete') return
 
-      setIsLoginLoading(true)
+      setLoadingMethod('sbid')
       const tokenResponse = await fetch('/api/auth/signicat/firebase-token')
       const tokenPayload = (await tokenResponse.json()) as {success: boolean; customToken?: string; redirect?: string; error?: string}
 
       if (!tokenPayload.success || !tokenPayload.customToken) {
         setValue('errors', {global: 'auth/signicat-login-failed'})
-        setIsLoginLoading(false)
+        setLoadingMethod(null)
         return
       }
 
@@ -38,11 +56,10 @@ const LoginOptions = () => {
 
       if (response.error || !response.user) {
         setValue('errors', {global: (response.error?.code ?? 'auth/signicat-login-failed') as GoogleAuthCodesType})
-        setIsLoginLoading(false)
+        setLoadingMethod(null)
         return
       }
 
-      // Redirect directly to profile creation or the intended destination
       const redirectPath = tokenPayload.redirect || '/profile/create'
       push(redirectPath)
     }
@@ -50,42 +67,48 @@ const LoginOptions = () => {
     completeSignicatLogin()
   }, [searchParams, setValue, push])
 
-  const onLoginClick = () => {
-    setIsLoginLoading(true)
+  const onMethodClick = (method: Method) => {
+    setLoadingMethod(method)
     const redirect = searchParams.get('redirect') || '/profile/create'
-    window.location.href = `/api/auth/signicat/start?redirect=${encodeURIComponent(redirect)}`
+    window.location.href = `/api/auth/signicat/start?method=${method}&redirect=${encodeURIComponent(redirect)}`
   }
 
+  const isBusy = loadingMethod !== null
+
   return (
-    <div className="flex flex-col gap-8">
-      <h1 className="text-h3 font-semibold text-neutral-900">{t('LoginPage.sign-in-to-account')}</h1>
-      <p className="text-body text-neutral-600">{t('LoginPage.choose-sign-in-method')}</p>
-      
-      <div className="flex flex-col gap-4">
-        {/* BankID Button */}
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-2">
+        <h1 className="text-h3 font-semibold text-neutral-900">{t('LoginPage.sign-in-to-account')}</h1>
+        <p className="text-body text-neutral-500">{t('LoginPage.choose-sign-in-method')}</p>
+      </div>
+
+      <div className="flex flex-col gap-3">
         <button
-          onClick={onLoginClick}
-          disabled={isLoginLoading}
-          className="flex w-full items-center justify-center gap-3 rounded-lg bg-[#1E3A5F] px-6 py-4 text-white transition-all hover:bg-[#2A4A75] active:bg-[#152A45] disabled:cursor-not-allowed disabled:opacity-50"
-        >
-          {isLoginLoading ? (
-            <div className="h-6 w-6 animate-spin rounded-full border-2 border-white border-t-transparent" />
+          type="button"
+          onClick={() => onMethodClick('freja-eid')}
+          disabled={isBusy}
+          className="flex w-full items-center gap-4 rounded-xl border border-neutral-200 bg-white px-4 py-3 text-left transition-all hover:border-neutral-300 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-60">
+          {loadingMethod === 'freja-eid' ? (
+            <div className="h-10 w-10 shrink-0 animate-spin rounded-full border-2 border-neutral-300 border-t-neutral-700" />
           ) : (
-            <>
-              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M11.5 7C11.5 7 8.5 7 8.5 10V22C8.5 25 11.5 25 11.5 25H20.5C20.5 25 23.5 25 23.5 22V10C23.5 7 20.5 7 20.5 7H11.5Z"
-                  fill="white"
-                />
-                <path d="M13 11H19" stroke="#1E3A5F" strokeWidth="2" strokeLinecap="round" />
-                <path d="M13 16H19" stroke="#1E3A5F" strokeWidth="2" strokeLinecap="round" />
-                <path d="M13 21H19" stroke="#1E3A5F" strokeWidth="2" strokeLinecap="round" />
-              </svg>
-              <span className="text-lg font-semibold">{t('LoginPage.login-with-bankid')}</span>
-            </>
+            <FrejaIcon />
           )}
+          <span className="text-base font-medium text-neutral-900">{t('LoginPage.login-with-freja')}</span>
         </button>
-        
+
+        <button
+          type="button"
+          onClick={() => onMethodClick('sbid')}
+          disabled={isBusy}
+          className="flex w-full items-center gap-4 rounded-xl border border-neutral-200 bg-white px-4 py-3 text-left transition-all hover:border-neutral-300 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-60">
+          {loadingMethod === 'sbid' ? (
+            <div className="h-10 w-10 shrink-0 animate-spin rounded-full border-2 border-neutral-300 border-t-neutral-700" />
+          ) : (
+            <BankIDIcon />
+          )}
+          <span className="text-base font-medium text-neutral-900">{t('LoginPage.login-with-swedish-bankid')}</span>
+        </button>
+
         <Error error={watch('errors')?.global} />
       </div>
     </div>
