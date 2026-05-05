@@ -25,7 +25,7 @@ const getAccessToken = async () => {
       Authorization: `Basic ${Buffer.from(`${clientId}:${clientSecret}`).toString('base64')}`,
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: new URLSearchParams({grant_type: 'client_credentials', scope: 'identify'}),
+    body: new URLSearchParams({grant_type: 'client_credentials'}),
     cache: 'no-store'
   })
 
