@@ -150,7 +150,7 @@ const LoginOptions = () => {
             {t('cancel')}
           </button>
         </div>
-        <Error error={watch('errors')?.global || errorCode || undefined} />
+        <Error error={watch('errors')?.global || errorCode || ''} />
       </div>
     )
   }
@@ -171,7 +171,7 @@ const LoginOptions = () => {
         <span className="text-base font-medium text-neutral-900">{t('LoginPage.login-with-swedish-bankid')}</span>
       </button>
 
-      <Error error={watch('errors')?.global || errorCode || undefined} />
+      <Error error={watch('errors')?.global || errorCode || ''} />
     </div>
   )
 }
