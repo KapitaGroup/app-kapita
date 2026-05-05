@@ -343,8 +343,10 @@
       "verify-account": "Verifiera ditt konto",
       "password-reset": "Återställ lösenord"
     },
-    "sign-in-to-account": "Logga in på ditt konto",
-    "choose-sign-in-method": "Välj hur du vill logga in på ditt konto.",
+    "sign-in-to-account": "Logga in eller skapa konto",
+    "choose-sign-in-method": "Välj identitetsleverantör",
+    "login-with-freja": "Freja eID",
+    "login-with-swedish-bankid": "Svenskt BankID",
     "info": {
       "description": "Kapita strävar efter att vara den ledande partnern för entreprenörer och företag som vill skapa långsiktigt värde.",
       "benefits": {
@@ -360,8 +362,6 @@
     "verify-phone": "Verifiera telefonnummer",
     "send-verification-code": "Skicka verifieringskod",
     "continue-with-phone": "Fortsätt med telefon",
-    "continue-with-signicat": "Fortsätt med Signicat",
-    "login-with-bankid": "Logga in med BankID",
     "send-code": "Skicka verifieringskod",
     "code-sent-to": "Kod skickad till",
     "resend-code": "Skicka igen",

@@ -343,8 +343,10 @@
       "verify-account": "Verify your account",
       "password-reset": "Reset password"
     },
-    "sign-in-to-account": "Sign in to your account",
-    "choose-sign-in-method": "Choose how you want to sign in to your account.",
+    "sign-in-to-account": "Log in or create account",
+    "choose-sign-in-method": "Select identity provider",
+    "login-with-freja": "Freja eID",
+    "login-with-swedish-bankid": "Swedish BankID",
     "info": {
       "description": "Kapita strives to be the leading partner for entrepreneurs and companies that want to create long-term value.",
       "benefits": {
@@ -360,8 +362,6 @@
     "verify-phone": "Verify phone number",
     "send-verification-code": "Send verification code",
     "continue-with-phone": "Continue with phone",
-    "continue-with-signicat": "Continue with Signicat",
-    "login-with-bankid": "Login with BankID",
     "send-code": "Send verification code",
     "code-sent-to": "Code sent to",
     "resend-code": "Resend code",

@@ -22,9 +22,13 @@ export async function GET(request: NextRequest) {
     const nonce = randomBase64Url()
     const codeVerifier = randomBase64Url(64)
     const redirectPath = request.nextUrl.searchParams.get('redirect') || '/'
-    
-    // BankID authentication - use urn:signicat:oidc:method:sbid for Swedish BankID
-    const acrValues = process.env.SIGNICAT_ACR_VALUES || 'urn:signicat:oidc:method:sbid'
+
+    const methodParam = request.nextUrl.searchParams.get('method')
+    const methodMap: Record<string, string> = {
+      sbid: 'urn:signicat:oidc:method:sbid',
+      'freja-eid': 'urn:signicat:oidc:method:freja-eid'
+    }
+    const acrValues = (methodParam && methodMap[methodParam]) || process.env.SIGNICAT_ACR_VALUES || 'urn:signicat:oidc:method:sbid'
 
     const authorizeUrl = new URL(`${authority}/connect/authorize`)
     authorizeUrl.searchParams.set('client_id', clientId)
