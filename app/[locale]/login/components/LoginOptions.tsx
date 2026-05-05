@@ -130,6 +130,7 @@ const LoginOptions = () => {
     return (
       <div className="flex flex-col gap-6">
         <div className="flex flex-col items-center gap-4">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/images/bankid-logo.svg" alt="BankID" className="h-12 w-auto" />
           <p className="text-center text-body text-neutral-600">{t('LoginPage.bankid-scan-instruction')}</p>
 
@@ -165,6 +166,7 @@ const LoginOptions = () => {
         type="button"
         onClick={onStartBankId}
         className="flex w-full items-center gap-4 rounded-xl border border-neutral-200 bg-white px-4 py-3 text-left transition-all hover:border-neutral-300 hover:bg-neutral-50">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/images/bankid-logo.svg" alt="BankID" className="h-10 w-10" />
         <span className="text-base font-medium text-neutral-900">{t('LoginPage.login-with-swedish-bankid')}</span>
       </button>

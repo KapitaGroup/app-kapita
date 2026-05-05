@@ -1,5 +1,5 @@
 import {cookies} from 'next/headers'
-import {NextRequest, NextResponse} from 'next/server'
+import {NextResponse} from 'next/server'
 import {auth} from '@/libs/firebase/config-admin'
 import {getBankIdSession, signicatUidFor} from '@/libs/signicat/restApi'
 
@@ -7,7 +7,7 @@ export const dynamic = 'force-dynamic'
 
 const SIGNICAT_ISSUER = 'signicat-rest'
 
-export async function GET(request: NextRequest) {
+export async function GET() {
   const sessionId = cookies().get('bankid_session_id')?.value
   if (!sessionId) return NextResponse.json({success: false, error: 'no-session'}, {status: 400})
 
