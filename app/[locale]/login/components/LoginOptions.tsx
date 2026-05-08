@@ -22,13 +22,12 @@ type StatusResponse = {
 
 const POLL_INTERVAL_MS = 1500
 
-const buildAutoStartUrl = (token: string, returnUrl?: string) => {
-  // BankID universal link — works on iOS Safari, Android Chrome, and desktop
-  // browsers (which will offer to open BankID for Windows/macOS).
-  // `redirect=null` keeps the user in the current browser tab; on iOS Safari
-  // we send them back to the current URL so the polling page is re-opened.
-  const redirect = returnUrl ?? 'null'
-  return `https://app.bankid.com/?autostarttoken=${encodeURIComponent(token)}&redirect=${encodeURIComponent(redirect)}`
+const buildAutoStartUrl = (token: string) => {
+  // BankID universal link with `redirect=null` — this tells BankID to leave
+  // the current browser tab as-is when control returns. Critical on iOS
+  // Safari: any other value forces Safari to navigate to that URL after
+  // BankID, which would reload the page and drop the polling state.
+  return `https://app.bankid.com/?autostarttoken=${encodeURIComponent(token)}&redirect=null`
 }
 
 const detectMobile = () => {
@@ -127,14 +126,9 @@ const LoginOptions = () => {
       setQrData(data.qrData)
       if (data.autoStartToken) setAutoStartToken(data.autoStartToken)
 
-      // On mobile, auto-launch the BankID app so the user doesn't have to tap
-      // an extra button. The browser will navigate them straight into BankID;
-      // when they finish, BankID returns to this tab and polling completes.
-      if (detectMobile() && data.autoStartToken) {
-        const returnUrl = typeof window !== 'undefined' ? window.location.href : undefined
-        window.location.href = buildAutoStartUrl(data.autoStartToken, returnUrl)
-      }
-
+      // No JS-driven auto-launch — the user taps the visible "Open BankID"
+      // button, which iOS Safari treats as a true user gesture and reliably
+      // opens the BankID app via the universal link.
       pollTimer.current = setTimeout(pollStatus, POLL_INTERVAL_MS)
     } catch {
       setErrorCode('auth/signicat-login-failed')
@@ -155,9 +149,41 @@ const LoginOptions = () => {
     if (urlError) setErrorCode(`auth/${urlError}`)
   }, [searchParams])
 
-  const sameDeviceUrl = autoStartToken
-    ? buildAutoStartUrl(autoStartToken, typeof window !== 'undefined' ? window.location.href : undefined)
-    : null
+  // Resume an in-flight session on mount. Covers the iOS case where the user
+  // tapped Open BankID, completed in the BankID app, and returned to Safari
+  // — even if Safari refreshed the tab the cookie still holds the session id.
+  useEffect(() => {
+    let cancelled = false
+    const resume = async () => {
+      try {
+        const response = await fetch('/api/auth/bankid/status', {cache: 'no-store'})
+        if (!response.ok) return
+        const data = (await response.json()) as StatusResponse
+        if (cancelled || !data.success) return
+
+        if (data.status === 'SUCCESS' && data.customToken) {
+          setView('completing')
+          await finishWithToken(data.customToken, data.redirect || '/onboarding/welcome')
+          return
+        }
+
+        if (data.status === 'WAITING_FOR_USER' || data.status === 'CREATED' || data.status === 'STARTED') {
+          setView('qr')
+          if (data.qrData) setQrData(data.qrData)
+          pollTimer.current = setTimeout(pollStatus, POLL_INTERVAL_MS)
+        }
+      } catch {
+        // No active session or transient error — user can start fresh.
+      }
+    }
+    resume()
+    return () => {
+      cancelled = true
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const sameDeviceUrl = autoStartToken ? buildAutoStartUrl(autoStartToken) : null
 
   if (view === 'qr' || view === 'completing') {
     return (
