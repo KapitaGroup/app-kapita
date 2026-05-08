@@ -1,4 +1,48 @@
 {
+  "Onboarding": {
+    "welcome": {
+      "title": "Välkommen till Kapita",
+      "subtitle": "Kom igång på bara några minuter. Snabbt, enkelt och kostnadsfritt redan idag!",
+      "personal-section": "Skapa ett personligt konto",
+      "or": "eller",
+      "corporate": "Skaffa företagskonto"
+    },
+    "personal": {
+      "greeting": "Välkommen {name}!",
+      "greeting-fallback": "Välkommen!",
+      "intro": "Nu ser vi fram emot att lära känna dig bättre, så du kommer att få svara på en rad frågor. Vi guidar dig genom processen och lovar att det går snabbt!",
+      "contact": "Kontaktuppgifter",
+      "phone": "Mobilnummer",
+      "phone-placeholder": "Ange mobilnummer",
+      "email": "Mejladress",
+      "email-placeholder": "Ange mejladress",
+      "suitability": "Kundpassandefrågor",
+      "suitability-help": "Följande frågor ställs för att bedöma om du är rätt person att ta del av vår information.",
+      "experience": "Har du investerat i onoterad tidigare?",
+      "min-investment": "Minsta möjliga investeringsalternativ",
+      "portfolio-size": "Portföljens storlek",
+      "select": "Ange svar",
+      "select-amount": "Välj belopp",
+      "select-size": "Ange storlek",
+      "yes": "Ja",
+      "no": "Nej",
+      "terms-prefix": "Jag accepterar",
+      "terms-link": "användarvillkoren",
+      "and": "och",
+      "privacy-link": "integritetspolicyn",
+      "submit": "Skapa konto",
+      "submitting": "Skickar…",
+      "error-required": "Vänligen fyll i alla obligatoriska fält.",
+      "error-terms": "Du måste acceptera användarvillkoren och integritetspolicyn.",
+      "error-submit": "Det gick inte att skicka din ansökan. Försök igen."
+    },
+    "pending": {
+      "thanks": "Tack!",
+      "under-review": "Din ansökan är under granskning",
+      "description": "Vi går igenom din ansökan och svaren för att göra en helhetsbedömning av din lämplighet för investeringar i onoterade tillgångar.",
+      "request-call": "Jag vill bli kontaktad via telefon"
+    }
+  },
   "ok": "OK",
   "start": "Börja",
   "next": "Nästa",

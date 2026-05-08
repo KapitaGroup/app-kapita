@@ -16,6 +16,7 @@ export const useUserProtection = () => {
   useEffect(() => {
     if (isLoading || isUserLoading) return
 
+    if (pathname.startsWith('/onboarding')) return
     if (['/profile/needs-analysis', '/profile/know-your-customer'].some(url => pathname.startsWith(url))) return
 
     if (!user?.uid) {
@@ -24,6 +25,25 @@ export const useUserProtection = () => {
     }
 
     const profileFormsCompletedGuard = async () => {
+      // Application-status gate: BankID-authed users without an approved
+      // application get redirected to the onboarding flow until BackOffice
+      // approves them.
+      try {
+        const tokenResult = await user.getIdTokenResult()
+        const status = tokenResult.claims.applicationStatus as string | undefined
+        const isBankId = !!tokenResult.claims.bankid
+        if (status === 'pending' || status === 'rejected') {
+          push('/onboarding/pending')
+          return
+        }
+        if (!status && isBankId) {
+          push('/onboarding/welcome')
+          return
+        }
+      } catch {
+        // fall through — preserve previous behavior on token errors
+      }
+
       const formsStates = await formsCompletedHubspot(profile?.email)
       const localProgress = readLocalOnboardingProgress(user.uid)
       const profileCompleted = localProgress.profileCompleted || formsStates?.profileCompleted || hasCompletedProfile(profile)

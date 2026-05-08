@@ -1,4 +1,48 @@
 {
+  "Onboarding": {
+    "welcome": {
+      "title": "Welcome to Kapita",
+      "subtitle": "Get started in just a few minutes. Quick, simple and free of charge today!",
+      "personal-section": "Create a personal account",
+      "or": "or",
+      "corporate": "Get a corporate account"
+    },
+    "personal": {
+      "greeting": "Welcome {name}!",
+      "greeting-fallback": "Welcome!",
+      "intro": "We look forward to getting to know you better, so you'll answer a series of questions. We'll guide you through the process and promise it will be quick!",
+      "contact": "Contact details",
+      "phone": "Mobile number",
+      "phone-placeholder": "Enter mobile number",
+      "email": "Email address",
+      "email-placeholder": "Enter email address",
+      "suitability": "Suitability questions",
+      "suitability-help": "These questions help us assess whether you are the right person to access our information.",
+      "experience": "Have you invested in unlisted assets before?",
+      "min-investment": "Minimum possible investment option",
+      "portfolio-size": "Portfolio size",
+      "select": "Select an answer",
+      "select-amount": "Choose amount",
+      "select-size": "Choose size",
+      "yes": "Yes",
+      "no": "No",
+      "terms-prefix": "I accept the",
+      "terms-link": "user terms",
+      "and": "and",
+      "privacy-link": "privacy policy",
+      "submit": "Create account",
+      "submitting": "Submitting…",
+      "error-required": "Please fill in all required fields.",
+      "error-terms": "You must accept the user terms and privacy policy.",
+      "error-submit": "Could not submit your application. Please try again."
+    },
+    "pending": {
+      "thanks": "Thank you!",
+      "under-review": "Your application is under review",
+      "description": "We're reviewing your application and answers to make a holistic assessment of your suitability for investments in unlisted assets.",
+      "request-call": "I'd like to be contacted by phone"
+    }
+  },
   "ok": "OK",
   "start": "Start",
   "next": "Next",

@@ -62,7 +62,7 @@ export async function GET() {
     if (subject.nin) customClaims.personalNumber = subject.nin
 
     const customToken = await auth.createCustomToken(uid, customClaims)
-    const redirect = cookies().get('bankid_redirect')?.value || '/profile/create'
+    const redirect = cookies().get('bankid_redirect')?.value || '/onboarding/welcome'
 
     cookies().delete('bankid_session_id')
     cookies().delete('bankid_redirect')

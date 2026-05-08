@@ -49,7 +49,7 @@ const LoginOptions = () => {
       setView('idle')
       return
     }
-    push(redirect || '/profile/create')
+    push(redirect || '/onboarding/welcome')
   }
 
   const pollStatus = async () => {
@@ -66,7 +66,7 @@ const LoginOptions = () => {
 
       if (data.status === 'SUCCESS' && data.customToken) {
         setView('completing')
-        await finishWithToken(data.customToken, data.redirect || '/profile/create')
+        await finishWithToken(data.customToken, data.redirect || '/onboarding/welcome')
         return
       }
 
@@ -94,7 +94,7 @@ const LoginOptions = () => {
     setView('qr')
     setQrData(null)
     try {
-      const redirect = searchParams.get('redirect') || '/profile/create'
+      const redirect = searchParams.get('redirect') || '/onboarding/welcome'
       const response = await fetch('/api/auth/bankid/start', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
