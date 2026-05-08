@@ -391,6 +391,9 @@
     "bankid-subtitle": "Logga in säkert med Svenskt BankID",
     "login-with-swedish-bankid": "Svenskt BankID",
     "bankid-scan-instruction": "Öppna BankID-appen och välj ”Skanna QR-kod”. Skanna sedan QR-koden nedan.",
+    "bankid-mobile-instruction": "Tryck på knappen nedan för att öppna BankID på den här telefonen.",
+    "bankid-open-app": "Öppna BankID",
+    "bankid-open-this-device": "Öppna BankID-appen på den här enheten",
     "bankid-completing": "Slutför inloggning…",
     "info": {
       "description": "Kapita strävar efter att vara den ledande partnern för entreprenörer och företag som vill skapa långsiktigt värde.",

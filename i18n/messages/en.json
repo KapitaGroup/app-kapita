@@ -391,6 +391,9 @@
     "bankid-subtitle": "Sign in securely with Swedish BankID",
     "login-with-swedish-bankid": "Swedish BankID",
     "bankid-scan-instruction": "Open the BankID app and choose \"Scan QR code\". Then scan the QR code below.",
+    "bankid-mobile-instruction": "Tap the button below to open BankID on this phone.",
+    "bankid-open-app": "Open BankID",
+    "bankid-open-this-device": "Open the BankID app on this device",
     "bankid-completing": "Completing sign-in…",
     "info": {
       "description": "Kapita strives to be the leading partner for entrepreneurs and companies that want to create long-term value.",
