@@ -32,7 +32,20 @@ export async function GET() {
   }
 
   const subject = session.subject || {}
-  const sub = subject.sub || subject.nin
+  // Signicat sometimes returns `nin` as an object like `{value, type}`
+  // depending on the provider response shape — normalise to a plain string so
+  // downstream consumers and Firebase custom claims stay typed correctly.
+  const extractString = (raw: unknown): string | undefined => {
+    if (typeof raw === 'string') return raw
+    if (raw && typeof raw === 'object') {
+      const obj = raw as Record<string, unknown>
+      if (typeof obj.value === 'string') return obj.value
+      if (typeof obj.nin === 'string') return obj.nin
+    }
+    return undefined
+  }
+  const ninString = extractString(subject.nin)
+  const sub = subject.sub || ninString
   if (!sub) {
     return NextResponse.json({success: false, error: 'bankid-missing-subject'}, {status: 500})
   }
@@ -59,7 +72,7 @@ export async function GET() {
       bankid: true,
       signicatSub: sub
     }
-    if (subject.nin) customClaims.personalNumber = subject.nin
+    if (ninString) customClaims.personalNumber = ninString
 
     const customToken = await auth.createCustomToken(uid, customClaims)
     const redirect = cookies().get('bankid_redirect')?.value || '/onboarding'

@@ -45,7 +45,9 @@ export type SignicatSubject = {
   firstName?: string
   lastName?: string
   dateOfBirth?: string
-  nin?: string
+  // Signicat returns nin as either a bare string or {value, type} depending on
+  // the provider — keep the type loose and normalise at the call site.
+  nin?: string | {value?: string; type?: string}
   email?: string
 }
 

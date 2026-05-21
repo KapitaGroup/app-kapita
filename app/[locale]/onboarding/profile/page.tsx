@@ -111,8 +111,12 @@ const Page = () => {
           </Select>
         </Field>
 
-        <Field label={t('focus')} htmlFor="focus">
-          <Select id="focus" value={draft.focus} onChange={e => update('focus', e.target.value)} required>
+        <Field label={t('focus')} htmlFor="investment-focus">
+          <Select
+            id="investment-focus"
+            value={draft.focus}
+            onChange={e => update('focus', e.target.value)}
+            required>
             <option value="" disabled>{t('select')}</option>
             {focusOptions.map(o => (
               <option key={o.value} value={o.value}>{o.label}</option>

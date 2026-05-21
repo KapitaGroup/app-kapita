@@ -29,7 +29,13 @@ const Page = () => {
       try {
         const token = await user.getIdTokenResult()
         const claims = token.claims as Record<string, unknown>
-        const personalNumber = (claims.personalNumber as string | undefined) ?? ''
+        const personalNumberRaw = claims.personalNumber
+        const personalNumber =
+          typeof personalNumberRaw === 'string'
+            ? personalNumberRaw
+            : personalNumberRaw && typeof personalNumberRaw === 'object'
+              ? String((personalNumberRaw as {value?: unknown}).value ?? '')
+              : ''
         const fullName = (user.displayName || '').trim()
         const [firstName, ...rest] = fullName.split(/\s+/)
         const lastName = rest.join(' ')
