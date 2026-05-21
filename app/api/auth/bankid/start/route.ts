@@ -13,7 +13,7 @@ const getEndUserIp = (request: NextRequest) => {
 export async function POST(request: NextRequest) {
   try {
     const body = (await request.json().catch(() => ({}))) as {redirect?: string}
-    const redirect = body.redirect || '/onboarding/welcome'
+    const redirect = body.redirect || '/onboarding'
     const secure = request.nextUrl.protocol === 'https:'
 
     const session = await startBankIdSession({endUserIp: getEndUserIp(request)})

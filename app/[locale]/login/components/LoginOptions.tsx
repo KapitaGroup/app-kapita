@@ -65,7 +65,7 @@ const LoginOptions = () => {
       setView('idle')
       return
     }
-    push(redirect || '/onboarding/welcome')
+    push(redirect || '/onboarding')
   }
 
   const pollStatus = async () => {
@@ -82,7 +82,7 @@ const LoginOptions = () => {
 
       if (data.status === 'SUCCESS' && data.customToken) {
         setView('completing')
-        await finishWithToken(data.customToken, data.redirect || '/onboarding/welcome')
+        await finishWithToken(data.customToken, data.redirect || '/onboarding')
         return
       }
 
@@ -111,7 +111,7 @@ const LoginOptions = () => {
     setQrData(null)
     setAutoStartToken(null)
     try {
-      const redirect = searchParams.get('redirect') || '/onboarding/welcome'
+      const redirect = searchParams.get('redirect') || '/onboarding'
       const response = await fetch('/api/auth/bankid/start', {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -163,7 +163,7 @@ const LoginOptions = () => {
 
         if (data.status === 'SUCCESS' && data.customToken) {
           setView('completing')
-          await finishWithToken(data.customToken, data.redirect || '/onboarding/welcome')
+          await finishWithToken(data.customToken, data.redirect || '/onboarding')
           return
         }
 
@@ -236,21 +236,31 @@ const LoginOptions = () => {
     )
   }
 
+  const goCreateAccount = () => push('/onboarding')
+
   return (
     <div className="flex flex-col gap-6">
-      <div className="flex flex-col gap-2">
-        <h1 className="text-h3 font-semibold text-neutral-900">{t('LoginPage.sign-in-to-account')}</h1>
-        <p className="text-body text-neutral-500">{t('LoginPage.bankid-subtitle')}</p>
+      <div className="flex flex-col gap-2 text-center">
+        <h1 className="text-h2 text-neutral-900">{t('LoginPage.log-in-title')}</h1>
+        <p className="text-body text-neutral-500">{t('LoginPage.log-in-subtitle')}</p>
       </div>
 
-      <button
-        type="button"
-        onClick={onStartBankId}
-        className="flex w-full items-center gap-4 rounded-xl border border-neutral-200 bg-white px-4 py-3 text-left transition-all hover:border-neutral-300 hover:bg-neutral-50">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/images/bankid-logo.svg" alt="BankID" className="h-10 w-10" />
-        <span className="text-base font-medium text-neutral-900">{t('LoginPage.login-with-swedish-bankid')}</span>
-      </button>
+      <div className="flex flex-col gap-3">
+        <button
+          type="button"
+          onClick={onStartBankId}
+          className="flex w-full items-center justify-center gap-3 rounded-md bg-neutral-900 px-6 py-3.5 text-white transition-colors hover:bg-neutral-800">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/images/bankid-logo.svg" alt="BankID" className="h-6 w-6 invert" />
+          <span className="text-button">{t('LoginPage.log-in-with-bankid')}</span>
+        </button>
+        <button
+          type="button"
+          onClick={goCreateAccount}
+          className="flex w-full items-center justify-center rounded-md border border-neutral-300 bg-white px-6 py-3.5 text-button text-neutral-900 transition-colors hover:border-neutral-400 hover:bg-neutral-50">
+          {t('LoginPage.sign-up-cta')}
+        </button>
+      </div>
 
       <Error error={watch('errors')?.global || errorCode || ''} />
     </div>

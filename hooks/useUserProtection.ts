@@ -37,7 +37,7 @@ export const useUserProtection = () => {
           return
         }
         if (!status && isBankId) {
-          push('/onboarding/welcome')
+          push('/onboarding')
           return
         }
       } catch {
