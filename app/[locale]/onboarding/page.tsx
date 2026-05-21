@@ -1,8 +1,10 @@
 'use client'
 import {useEffect, useRef, useState} from 'react'
 import {useTranslations} from 'next-intl'
+import {useAuthState} from 'react-firebase-hooks/auth'
 import QRCode from 'react-qr-code'
 import StepHeader from './components/StepHeader'
+import {auth} from '@/libs/firebase/config-client'
 import {signInWithSignicatToken} from '@/libs/firebase/auth'
 import {useRouter} from '@/i18n/routing'
 
@@ -26,6 +28,7 @@ const detectMobile = () => {
 const Page = () => {
   const t = useTranslations('Onboarding.bankid')
   const router = useRouter()
+  const [user, isAuthLoading] = useAuthState(auth)
   const [view, setView] = useState<'idle' | 'qr' | 'completing'>('idle')
   const [qrData, setQrData] = useState<string | null>(null)
   const [autoStartToken, setAutoStartToken] = useState<string | null>(null)
@@ -42,6 +45,28 @@ const Page = () => {
       if (pollTimer.current) clearTimeout(pollTimer.current)
     }
   }, [])
+
+  // If the user is already authed via BankID (returning visitor or refresh
+  // mid-flow), skip step 1 and continue to step 2 — running BankID again
+  // would just re-create the same Firebase user.
+  useEffect(() => {
+    if (isAuthLoading || !user) return
+    let cancelled = false
+    const skipIfBankIdAuthed = async () => {
+      try {
+        const result = await user.getIdTokenResult()
+        if (cancelled) return
+        const claims = result.claims as Record<string, unknown>
+        if (claims.bankid === true) router.replace(NEXT_STEP)
+      } catch {
+        // fall through — show the BankID button as a fallback
+      }
+    }
+    skipIfBankIdAuthed()
+    return () => {
+      cancelled = true
+    }
+  }, [user, isAuthLoading, router])
 
   const finish = async (customToken: string) => {
     const response = await signInWithSignicatToken(customToken)

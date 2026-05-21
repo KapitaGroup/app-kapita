@@ -1,11 +1,13 @@
 'use client'
-import {useEffect, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {useTranslations} from 'next-intl'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import {auth} from '@/libs/firebase/config-client'
 import {useRouter} from '@/i18n/routing'
 import StepHeader from '../components/StepHeader'
-import {clearDraft, readDraft, writeDraft, type OnboardingDraft} from '../components/draft'
+import {clearDraft, emptyDraft, readDraft, writeDraft, type OnboardingDraft} from '../components/draft'
+
+const AUTH_GRACE_MS = 1500
 
 const CheckRow = ({
   id,
@@ -34,12 +36,29 @@ const Page = () => {
   const t = useTranslations('Onboarding.terms')
   const [user, isLoading] = useAuthState(auth)
   const router = useRouter()
-  const [draft, setDraft] = useState<OnboardingDraft>(() => readDraft())
+  const [mounted, setMounted] = useState(false)
+  const [draft, setDraft] = useState<OnboardingDraft>(emptyDraft)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const bounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
-    if (!isLoading && !user) router.replace('/onboarding')
+    setDraft(readDraft())
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (isLoading || user) {
+      if (bounceTimer.current) {
+        clearTimeout(bounceTimer.current)
+        bounceTimer.current = null
+      }
+      return
+    }
+    bounceTimer.current = setTimeout(() => router.replace('/onboarding'), AUTH_GRACE_MS)
+    return () => {
+      if (bounceTimer.current) clearTimeout(bounceTimer.current)
+    }
   }, [user, isLoading, router])
 
   const setRisk = (i: number, value: boolean) =>
@@ -107,6 +126,14 @@ const Page = () => {
     }
   }
 
+  if (!mounted) {
+    return (
+      <div className="flex flex-col gap-10">
+        <StepHeader current={4} title={t('title')} subtitle={t('subtitle')} />
+      </div>
+    )
+  }
+
   return (
     <form className="flex flex-col gap-10" onSubmit={onSubmit}>
       <StepHeader current={4} title={t('title')} subtitle={t('subtitle')} />
@@ -143,6 +170,7 @@ const Page = () => {
               href="https://www.kapita.com/terms-and-conditions"
               target="_blank"
               rel="noreferrer"
+              onClick={e => e.stopPropagation()}
               className="underline hover:text-neutral-900">
               {t('terms-link')}
             </a>{' '}
@@ -151,6 +179,7 @@ const Page = () => {
               href="https://www.kapita.com/privacy-policy"
               target="_blank"
               rel="noreferrer"
+              onClick={e => e.stopPropagation()}
               className="underline hover:text-neutral-900">
               {t('privacy-link')}
             </a>

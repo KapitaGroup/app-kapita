@@ -32,11 +32,11 @@ export async function GET() {
   }
 
   const subject = session.subject || {}
-  // Signicat sometimes returns `nin` as an object like `{value, type}`
-  // depending on the provider response shape — normalise to a plain string so
-  // downstream consumers and Firebase custom claims stay typed correctly.
+  // Signicat sometimes returns subject fields as objects (e.g. `{value, type}`)
+  // depending on the provider response shape — normalise every consumed field
+  // to a plain string so claims/userData stay typed correctly.
   const extractString = (raw: unknown): string | undefined => {
-    if (typeof raw === 'string') return raw
+    if (typeof raw === 'string') return raw || undefined
     if (raw && typeof raw === 'object') {
       const obj = raw as Record<string, unknown>
       if (typeof obj.value === 'string') return obj.value
@@ -45,18 +45,24 @@ export async function GET() {
     return undefined
   }
   const ninString = extractString(subject.nin)
-  const sub = subject.sub || ninString
+  const subString = extractString(subject.sub)
+  const nameString = extractString(subject.name)
+  const firstNameString = extractString(subject.firstName)
+  const lastNameString = extractString(subject.lastName)
+  const emailString = extractString(subject.email)
+
+  const sub = subString || ninString
   if (!sub) {
     return NextResponse.json({success: false, error: 'bankid-missing-subject'}, {status: 500})
   }
 
   try {
     const uid = signicatUidFor(SIGNICAT_ISSUER, sub)
-    const displayName = subject.name || [subject.firstName, subject.lastName].filter(Boolean).join(' ') || undefined
+    const displayName = nameString || [firstNameString, lastNameString].filter(Boolean).join(' ') || undefined
 
     const userData: {displayName?: string; email?: string; emailVerified?: boolean} = {displayName}
-    if (subject.email) {
-      userData.email = subject.email.toLowerCase()
+    if (emailString) {
+      userData.email = emailString.toLowerCase()
       userData.emailVerified = true
     }
 

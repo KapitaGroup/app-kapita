@@ -1,12 +1,14 @@
 'use client'
-import {useEffect, useState} from 'react'
+import {useEffect, useRef, useState} from 'react'
 import {useTranslations} from 'next-intl'
 import {useAuthState} from 'react-firebase-hooks/auth'
 import {auth} from '@/libs/firebase/config-client'
 import {useRouter} from '@/i18n/routing'
 import StepHeader from '../components/StepHeader'
 import {Field, Select} from '../components/FormField'
-import {readDraft, writeDraft, type OnboardingDraft} from '../components/draft'
+import {emptyDraft, readDraft, writeDraft, type OnboardingDraft} from '../components/draft'
+
+const AUTH_GRACE_MS = 1500
 
 const NEXT_STEP = '/onboarding/terms'
 
@@ -25,11 +27,28 @@ const Page = () => {
   const t = useTranslations('Onboarding.profile')
   const [user, isLoading] = useAuthState(auth)
   const router = useRouter()
-  const [draft, setDraft] = useState<OnboardingDraft>(() => readDraft())
+  const [mounted, setMounted] = useState(false)
+  const [draft, setDraft] = useState<OnboardingDraft>(emptyDraft)
   const [error, setError] = useState<string | null>(null)
+  const bounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
-    if (!isLoading && !user) router.replace('/onboarding')
+    setDraft(readDraft())
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (isLoading || user) {
+      if (bounceTimer.current) {
+        clearTimeout(bounceTimer.current)
+        bounceTimer.current = null
+      }
+      return
+    }
+    bounceTimer.current = setTimeout(() => router.replace('/onboarding'), AUTH_GRACE_MS)
+    return () => {
+      if (bounceTimer.current) clearTimeout(bounceTimer.current)
+    }
   }, [user, isLoading, router])
 
   const update = <K extends keyof OnboardingDraft>(key: K, value: OnboardingDraft[K]) =>
@@ -72,6 +91,14 @@ const Page = () => {
     {value: '5-25m', label: t('portfolio-5-25m')},
     {value: '>25m', label: t('portfolio-gt-25m')}
   ]
+
+  if (!mounted) {
+    return (
+      <div className="flex flex-col gap-10">
+        <StepHeader current={3} title={t('title')} subtitle={t('subtitle')} />
+      </div>
+    )
+  }
 
   return (
     <form className="flex flex-col gap-10" onSubmit={onSubmit}>
