@@ -78,23 +78,14 @@ const Page = () => {
       <StepHeader current={3} title={t('title')} subtitle={t('subtitle')} />
 
       <div className="flex flex-col gap-5">
-        <Field label={t('experience')} htmlFor="experience">
+        <Field label={t('portfolio-size')} htmlFor="portfolio">
           <Select
-            id="experience"
-            value={draft.experience}
-            onChange={e => update('experience', e.target.value)}
+            id="portfolio"
+            value={draft.portfolioSize}
+            onChange={e => update('portfolioSize', e.target.value)}
             required>
             <option value="" disabled>{t('select')}</option>
-            {experienceOptions.map(o => (
-              <option key={o.value} value={o.value}>{o.label}</option>
-            ))}
-          </Select>
-        </Field>
-
-        <Field label={t('focus')} htmlFor="focus">
-          <Select id="focus" value={draft.focus} onChange={e => update('focus', e.target.value)} required>
-            <option value="" disabled>{t('select')}</option>
-            {focusOptions.map(o => (
+            {portfolioOptions.map(o => (
               <option key={o.value} value={o.value}>{o.label}</option>
             ))}
           </Select>
@@ -120,14 +111,23 @@ const Page = () => {
           </Select>
         </Field>
 
-        <Field label={t('portfolio-size')} htmlFor="portfolio">
+        <Field label={t('focus')} htmlFor="focus">
+          <Select id="focus" value={draft.focus} onChange={e => update('focus', e.target.value)} required>
+            <option value="" disabled>{t('select')}</option>
+            {focusOptions.map(o => (
+              <option key={o.value} value={o.value}>{o.label}</option>
+            ))}
+          </Select>
+        </Field>
+
+        <Field label={t('experience')} htmlFor="experience">
           <Select
-            id="portfolio"
-            value={draft.portfolioSize}
-            onChange={e => update('portfolioSize', e.target.value)}
+            id="experience"
+            value={draft.experience}
+            onChange={e => update('experience', e.target.value)}
             required>
             <option value="" disabled>{t('select')}</option>
-            {portfolioOptions.map(o => (
+            {experienceOptions.map(o => (
               <option key={o.value} value={o.value}>{o.label}</option>
             ))}
           </Select>
@@ -136,10 +136,10 @@ const Page = () => {
 
       {error && <p className="text-description text-warning">{error}</p>}
 
-      <div className="flex justify-center">
+      <div className="flex xl:justify-center">
         <button
           type="submit"
-          className="rounded-md bg-neutral-900 px-8 py-3 text-button text-white transition-colors hover:bg-neutral-800">
+          className="w-full rounded-md bg-neutral-900 px-8 py-3 text-button text-white transition-colors hover:bg-neutral-800 xl:w-auto">
           {t('submit')}
         </button>
       </div>

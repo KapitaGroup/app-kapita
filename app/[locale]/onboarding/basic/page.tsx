@@ -77,28 +77,29 @@ const Page = () => {
       <StepHeader current={2} title={t('title')} subtitle={t('subtitle')} />
 
       <div className="flex flex-col gap-5">
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
           <Field label={t('first-name')} htmlFor="firstName">
             <Input id="firstName" value={draft.firstName} disabled readOnly />
           </Field>
           <Field label={t('last-name')} htmlFor="lastName">
             <Input id="lastName" value={draft.lastName} disabled readOnly />
           </Field>
-          <Field label={t('personal-number')} htmlFor="personalNumber">
+          <Field label={t('personal-number')} htmlFor="personalNumber" className="sm:col-span-2 xl:col-span-1">
             <Input id="personalNumber" value={draft.personalNumber} disabled readOnly />
           </Field>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-[2fr_1fr_1fr]">
-          <Field label={t('address')} htmlFor="address">
-            <Input
-              id="address"
-              value={draft.address}
-              onChange={e => update('address', e.target.value)}
-              autoComplete="street-address"
-              required
-            />
-          </Field>
+        <Field label={t('address')} htmlFor="address">
+          <Input
+            id="address"
+            value={draft.address}
+            onChange={e => update('address', e.target.value)}
+            autoComplete="street-address"
+            required
+          />
+        </Field>
+
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
           <Field label={t('postal-code')} htmlFor="postalCode">
             <Input
               id="postalCode"
@@ -119,29 +120,28 @@ const Page = () => {
           </Field>
         </div>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-          <Field label={t('phone')} htmlFor="phone">
-            <Input
-              id="phone"
-              type="tel"
-              inputMode="tel"
-              autoComplete="tel"
-              value={draft.phone}
-              onChange={e => update('phone', e.target.value)}
-              required
-            />
-          </Field>
-          <Field label={t('email')} htmlFor="email">
-            <Input
-              id="email"
-              type="email"
-              autoComplete="email"
-              value={draft.email}
-              onChange={e => update('email', e.target.value)}
-              required
-            />
-          </Field>
-        </div>
+        <Field label={t('phone')} htmlFor="phone">
+          <Input
+            id="phone"
+            type="tel"
+            inputMode="tel"
+            autoComplete="tel"
+            value={draft.phone}
+            onChange={e => update('phone', e.target.value)}
+            required
+          />
+        </Field>
+
+        <Field label={t('email')} htmlFor="email">
+          <Input
+            id="email"
+            type="email"
+            autoComplete="email"
+            value={draft.email}
+            onChange={e => update('email', e.target.value)}
+            required
+          />
+        </Field>
 
         <Field label={t('investor-type')} htmlFor="investorType">
           <Select
@@ -160,10 +160,10 @@ const Page = () => {
 
       {error && <p className="text-description text-warning">{error}</p>}
 
-      <div className="flex justify-end">
+      <div className="flex xl:justify-end">
         <button
           type="submit"
-          className="rounded-md bg-neutral-900 px-8 py-3 text-button text-white transition-colors hover:bg-neutral-800">
+          className="w-full rounded-md bg-neutral-900 px-8 py-3 text-button text-white transition-colors hover:bg-neutral-800 xl:w-auto">
           {t('submit')}
         </button>
       </div>
