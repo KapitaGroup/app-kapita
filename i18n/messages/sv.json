@@ -35,7 +35,8 @@
       "investor-select": "Välj alternativ",
       "submit": "Bekräfta uppgifter",
       "submitting": "Sparar…",
-      "error-required": "Vänligen fyll i alla obligatoriska fält."
+      "error-required": "Vänligen fyll i alla obligatoriska fält.",
+      "error-bankid-missing": "Vi kunde inte hämta dina BankID-uppgifter. Försök logga in på nytt."
     },
     "profile": {
       "title": "Investerarprofil",

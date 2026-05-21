@@ -39,14 +39,19 @@ const getAccessToken = async () => {
   return data.access_token
 }
 
+// Signicat sometimes wraps subject values in `{value, type}` objects rather
+// than plain strings, depending on the provider response shape. Keep the
+// types permissive and normalise at the call site.
+type SignicatField = string | {value?: string; type?: string} | undefined
+
 export type SignicatSubject = {
-  sub?: string
-  name?: string
-  firstName?: string
-  lastName?: string
-  dateOfBirth?: string
-  nin?: string
-  email?: string
+  sub?: SignicatField
+  name?: SignicatField
+  firstName?: SignicatField
+  lastName?: SignicatField
+  dateOfBirth?: SignicatField
+  nin?: SignicatField
+  email?: SignicatField
 }
 
 export type SignicatSessionStatus = 'CREATED' | 'WAITING_FOR_USER' | 'SUCCESS' | 'ABORT' | 'ERROR' | string

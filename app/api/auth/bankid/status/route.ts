@@ -32,18 +32,37 @@ export async function GET() {
   }
 
   const subject = session.subject || {}
-  const sub = subject.sub || subject.nin
+  // Signicat sometimes returns subject fields as objects (e.g. `{value, type}`)
+  // depending on the provider response shape — normalise every consumed field
+  // to a plain string so claims/userData stay typed correctly.
+  const extractString = (raw: unknown): string | undefined => {
+    if (typeof raw === 'string') return raw || undefined
+    if (raw && typeof raw === 'object') {
+      const obj = raw as Record<string, unknown>
+      if (typeof obj.value === 'string') return obj.value
+      if (typeof obj.nin === 'string') return obj.nin
+    }
+    return undefined
+  }
+  const ninString = extractString(subject.nin)
+  const subString = extractString(subject.sub)
+  const nameString = extractString(subject.name)
+  const firstNameString = extractString(subject.firstName)
+  const lastNameString = extractString(subject.lastName)
+  const emailString = extractString(subject.email)
+
+  const sub = subString || ninString
   if (!sub) {
     return NextResponse.json({success: false, error: 'bankid-missing-subject'}, {status: 500})
   }
 
   try {
     const uid = signicatUidFor(SIGNICAT_ISSUER, sub)
-    const displayName = subject.name || [subject.firstName, subject.lastName].filter(Boolean).join(' ') || undefined
+    const displayName = nameString || [firstNameString, lastNameString].filter(Boolean).join(' ') || undefined
 
     const userData: {displayName?: string; email?: string; emailVerified?: boolean} = {displayName}
-    if (subject.email) {
-      userData.email = subject.email.toLowerCase()
+    if (emailString) {
+      userData.email = emailString.toLowerCase()
       userData.emailVerified = true
     }
 
@@ -59,7 +78,7 @@ export async function GET() {
       bankid: true,
       signicatSub: sub
     }
-    if (subject.nin) customClaims.personalNumber = subject.nin
+    if (ninString) customClaims.personalNumber = ninString
 
     const customToken = await auth.createCustomToken(uid, customClaims)
     const redirect = cookies().get('bankid_redirect')?.value || '/onboarding'

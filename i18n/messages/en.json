@@ -35,7 +35,8 @@
       "investor-select": "Select option",
       "submit": "Confirm details",
       "submitting": "Saving…",
-      "error-required": "Please fill in all required fields."
+      "error-required": "Please fill in all required fields.",
+      "error-bankid-missing": "We couldn't load your BankID details. Please sign in again."
     },
     "profile": {
       "title": "Investor profile",
