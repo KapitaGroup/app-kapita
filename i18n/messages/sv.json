@@ -39,7 +39,7 @@
     },
     "profile": {
       "title": "Investerarprofil",
-      "subtitle": "Anpassad access baserat på din investerarprofil.",
+      "subtitle": "Hjälp oss anpassa investeringar och access efter din profil.",
       "experience": "Erfarenhet av privata investeringar",
       "focus": "Investeringsfokus",
       "typical-size": "Typisk investeringsstorlek",
@@ -64,12 +64,12 @@
       "portfolio-1-5m": "1 – 5 000 000 SEK",
       "portfolio-5-25m": "5 – 25 000 000 SEK",
       "portfolio-gt-25m": "> 25 000 000 SEK",
-      "submit": "Spara och fortsätt",
+      "submit": "Fortsätt",
       "error-required": "Vänligen besvara samtliga frågor."
     },
     "terms": {
       "title": "Risk & villkor",
-      "subtitle": "Läs och acceptera följande för att få tillgång till investeringsmöjligheter.",
+      "subtitle": "Investeringar i onoterade bolag innebär risk och begränsad likviditet.",
       "risk-heading": "Riskförståelse",
       "risk-1": "Jag förstår att investeringar i privata bolag innebär hög risk.",
       "risk-2": "Jag förstår att jag kan förlora hela det investerade kapitalet.",
@@ -82,7 +82,7 @@
       "terms-link": "användarvillkor",
       "and": "och",
       "privacy-link": "integritetspolicy",
-      "submit": "Ansök om access",
+      "submit": "Godkänna villkoren",
       "submitting": "Skickar…",
       "error-required": "Du måste godkänna samtliga punkter.",
       "error-submit": "Det gick inte att skicka din ansökan. Försök igen."

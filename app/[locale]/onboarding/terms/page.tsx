@@ -161,11 +161,11 @@ const Page = () => {
 
       {error && <p className="text-description text-warning">{error}</p>}
 
-      <div className="flex justify-center">
+      <div className="flex xl:justify-center">
         <button
           type="submit"
           disabled={submitting}
-          className="rounded-md bg-neutral-900 px-8 py-3 text-button text-white transition-colors hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-60">
+          className="w-full rounded-md bg-neutral-900 px-8 py-3 text-button text-white transition-colors hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-60 xl:w-auto">
           {submitting ? t('submitting') : t('submit')}
         </button>
       </div>

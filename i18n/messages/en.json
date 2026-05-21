@@ -39,7 +39,7 @@
     },
     "profile": {
       "title": "Investor profile",
-      "subtitle": "Tailored access based on your investor profile.",
+      "subtitle": "Help us tailor investments and access to your profile.",
       "experience": "Private investment experience",
       "focus": "Investment focus",
       "typical-size": "Typical investment size",
@@ -64,12 +64,12 @@
       "portfolio-1-5m": "1 – 5,000,000 SEK",
       "portfolio-5-25m": "5 – 25,000,000 SEK",
       "portfolio-gt-25m": "> 25,000,000 SEK",
-      "submit": "Save and continue",
+      "submit": "Continue",
       "error-required": "Please answer all questions."
     },
     "terms": {
       "title": "Risk & terms",
-      "subtitle": "Read and accept the following to gain access to investment opportunities.",
+      "subtitle": "Investing in unlisted companies involves risk and limited liquidity.",
       "risk-heading": "Risk understanding",
       "risk-1": "I understand that investing in private companies involves high risk.",
       "risk-2": "I understand that I may lose the entire invested capital.",
@@ -82,7 +82,7 @@
       "terms-link": "user terms",
       "and": "and",
       "privacy-link": "privacy policy",
-      "submit": "Apply for access",
+      "submit": "Accept terms",
       "submitting": "Submitting…",
       "error-required": "You must accept all items.",
       "error-submit": "Could not submit your application. Please try again."
