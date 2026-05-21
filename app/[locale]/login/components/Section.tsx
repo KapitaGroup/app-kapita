@@ -1,5 +1,4 @@
 'use client'
-import Logo from '@/components/Logo'
 import {FormProvider, useForm} from 'react-hook-form'
 import LoginOptions from './LoginOptions'
 import type {GoogleAuthCodesType, ProfileType} from '@/utils/types'
@@ -22,7 +21,6 @@ const Section = () => {
   return (
     <FormProvider {...methods}>
       <form className="flex flex-col gap-8" onSubmit={e => e.preventDefault()}>
-        <Logo size="md" url="https://www.kapita.com/" />
         <LoginOptions />
       </form>
     </FormProvider>

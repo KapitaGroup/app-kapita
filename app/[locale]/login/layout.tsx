@@ -1,81 +1,74 @@
 'use client'
 import {useTranslations, useLocale} from 'next-intl'
-import Button from '@/components/Button'
 import Image from 'next/image'
 import bgImage from '/public/images/login_background.png'
-import VerifiedIcon from '@/icons/VerifiedIcon'
+import Logo from '@/components/Logo'
+import Button from '@/components/Button'
 import {useRouter, usePathname} from '@/i18n/routing'
-import EnglishFlagIcon from '@/icons/EnglishFlagIcon'
-import SwedishFlagIcon from '@/icons/SwedishFlagIcon'
 import type {LocaleType} from '@/i18n/routing'
 
 const Layout = ({children}: Readonly<{children: React.ReactNode}>) => {
   const t = useTranslations()
-  const locale = useLocale()
+  const locale = useLocale() as LocaleType
   const router = useRouter()
   const pathname = usePathname()
 
-  const switchLocale = (newLocale: LocaleType) => {
-    router.replace(pathname, {locale: newLocale})
+  const switchLocale = (next: LocaleType) => {
+    if (next === locale) return
+    router.replace(pathname, {locale: next})
   }
 
   return (
-    <div className="flex h-screen w-full">
-      <div className="col-span-4 flex h-full w-full flex-col justify-between bg-white p-4 max-content-width xl:col-span-8 xl:col-start-3 xl:p-12">
-        <div className="flex flex-col gap-8">
-          <div className="flex justify-end gap-2">
+    <main className="flex h-screen w-full bg-white">
+      <div className="flex h-full w-full flex-col xl:w-[58%]">
+        <div className="flex items-center justify-between px-6 pt-6 xl:px-12 xl:pt-10">
+          <Logo size="md" url="https://www.kapita.com/" />
+          <div className="flex items-center gap-2 text-sm">
             <button
-              onClick={() => switchLocale('en')}
-              className={`flex items-center gap-1.5 rounded-md px-2 py-1 text-sm transition-colors ${locale === 'en' ? 'bg-neutral-100 font-medium' : 'text-neutral-400 hover:text-neutral-700'}`}>
-              <EnglishFlagIcon className="h-4 w-4" />
-              EN
-            </button>
-            <button
+              type="button"
               onClick={() => switchLocale('sv')}
-              className={`flex items-center gap-1.5 rounded-md px-2 py-1 text-sm transition-colors ${locale === 'sv' ? 'bg-neutral-100 font-medium' : 'text-neutral-400 hover:text-neutral-700'}`}>
-              <SwedishFlagIcon className="h-4 w-4" />
+              className={`px-1 transition-colors ${locale === 'sv' ? 'font-medium text-neutral-900' : 'text-neutral-400 hover:text-neutral-700'}`}>
               SV
             </button>
+            <span className="text-neutral-300">|</span>
+            <button
+              type="button"
+              onClick={() => switchLocale('en')}
+              className={`px-1 transition-colors ${locale === 'en' ? 'font-medium text-neutral-900' : 'text-neutral-400 hover:text-neutral-700'}`}>
+              EN
+            </button>
           </div>
-          {children}
         </div>
-        <div>
-          <p className="text-disclaimer">{t('LoginPage.disclaimer')}</p>
+
+        <div className="flex flex-1 items-center overflow-y-auto px-6 py-10 xl:px-20">
+          <div className="mx-auto flex w-full max-w-[400px] flex-col gap-8">{children}</div>
+        </div>
+
+        <div className="px-6 pb-6 xl:px-12 xl:pb-8">
+          <p className="text-disclaimer text-neutral-500">{t('LoginPage.disclaimer')}</p>
           <div className="flex items-center gap-x-2">
             <Button text={t('terms-and-conditions')} variant="link" url="https://www.kapita.com/terms-and-conditions" fluid={false} />
-            <span>·</span>
+            <span className="text-neutral-400">·</span>
             <Button text={t('privacy-policy')} variant="link" url="https://www.kapita.com/privacy-policy" fluid={false} />
           </div>
         </div>
       </div>
-      <div className="hidden h-full w-full xl:relative xl:block">
+
+      <div className="relative hidden h-full xl:block xl:w-[42%]">
         <Image
           src={bgImage}
           alt={t('LoginPage.background-image-alt')}
-          sizes="100vw"
+          sizes="42vw"
           className="h-full w-full object-cover"
           priority
           placeholder="blur"
         />
-        <div className="absolute top-0 flex h-full w-[424px] flex-col justify-center gap-y-8 px-8 text-white [text-shadow:0px_1px_3px_rgba(0,0,0,0.15)]">
-          <h1 className="!leading-[27px] text-h4 [text-shadow:0px_1px_2px_rgba(0,0,0,0.3)]">{t('LoginPage.info.description')}</h1>
-          <div className="flex flex-col gap-y-3 text-h6 [text-shadow:0px_1px_2px_rgba(0,0,0,0.3)]">
-            <div className="flex items-center gap-x-2">
-              <VerifiedIcon className="min-h-8 min-w-8" />
-              <p>{t('LoginPage.info.benefits.exclusive-access')}</p>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <VerifiedIcon className="min-h-8 min-w-8" />
-              <p>{t('LoginPage.info.benefits.lower-investments')}</p>
-            </div>
-            <div className="flex items-center gap-x-2">
-              <VerifiedIcon className="min-h-8 min-w-8" />
-              <p>{t('LoginPage.info.benefits.rigorous-manager')}</p>
-            </div>
-          </div>
+        <div className="absolute bottom-10 right-10 text-right text-white [text-shadow:0px_1px_3px_rgba(0,0,0,0.25)]">
+          <p className="text-h4">{t('Onboarding.shared.image-tagline-1')}</p>
+          <p className="text-h4">{t('Onboarding.shared.image-tagline-2')}</p>
         </div>
       </div>
-    </div>
+    </main>
   )
 }
 export default Layout
