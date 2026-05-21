@@ -90,10 +90,10 @@ const Page = () => {
         />
       </div>
 
-      <div className="flex justify-center">
+      <div className="flex xl:justify-center">
         <a
           href="https://www.kapita.com/"
-          className="rounded-md bg-neutral-900 px-8 py-3 text-button text-white transition-colors hover:bg-neutral-800">
+          className="w-full rounded-md bg-neutral-900 px-8 py-3 text-center text-button text-white transition-colors hover:bg-neutral-800 xl:w-auto">
           {t('back-home')}
         </a>
       </div>
