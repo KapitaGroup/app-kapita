@@ -1,7 +1,7 @@
 'use client'
 import Image from 'next/image'
 import {useLocale, useTranslations} from 'next-intl'
-import bgImage from '/public/images/login_background.png'
+import bgImage from '/public/images/onboarding_background.jpg'
 import Logo from '@/components/Logo'
 import {useRouter, usePathname, type LocaleType} from '@/i18n/routing'
 
